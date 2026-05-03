@@ -509,9 +509,36 @@ ${texts.dt?`DOUBLETREE REPORT:\n${texts.dt.slice(0,5000)}\n\n`:''}
 ${texts.cp?`CROWNE PLAZA REPORT:\n${texts.cp.slice(0,5000)}\n\n`:''}`;
 
   const raw = await callClaude(prompt);
-  const clean = raw.replace(/```json|```/g,'').trim();
-  try { return JSON.parse(clean); }
-  catch { const m = clean.match(/\{[\s\S]*\}/); if(m) return JSON.parse(m[0]); throw new Error('Could not parse AI response'); }
+  const clean = raw.replace(/```json|```/g,"").trim();
+  // Extract and parse JSON from AI response
+  const jsonMatch = clean.match(/\{[\s\S]*\}/);
+  const toParse = jsonMatch ? jsonMatch[0] : clean;
+  try {
+    return JSON.parse(toParse);
+  } catch(e) {
+    console.warn('JSON parse failed:', e.message, '\nRaw:', raw.slice(0,300));
+    const empty = () => ({
+      propertyName:'',reportDate:null,
+      today:{occupancy:0,adr:0,revpar:0,rooms_sold:0,total_revenue:0},
+      mtd:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+      mtd_budget:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+      ytd:{occupancy:0,adr:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+      ytd_budget:{occupancy:0,adr:0,total_revenue:0,ebitda:0},
+      trend_labels:[],trend_actual:[],trend_budget:[],occ_trend_actual:[],occ_trend_budget:[]
+    });
+    return {dt:state.dt?empty():null, cp:state.cp?empty():null, hasBudget:!!state.budget};
+  }
+    const empty = () => ({
+      propertyName:'', reportDate:null,
+      today:{occupancy:0,adr:0,revpar:0,rooms_sold:0,total_revenue:0},
+      mtd:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+      mtd_budget:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+      ytd:{occupancy:0,adr:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+      ytd_budget:{occupancy:0,adr:0,total_revenue:0,ebitda:0},
+      trend_labels:[],trend_actual:[],trend_budget:[],occ_trend_actual:[],occ_trend_budget:[]
+    });
+    return { dt: state.dt ? empty() : null, cp: state.cp ? empty() : null, hasBudget: !!state.budget };
+  }
 }
 
 async function getInsight(parsed) {
