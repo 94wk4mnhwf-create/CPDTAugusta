@@ -11,80 +11,80 @@
     --navy:#1A2744;--navy2:#243259;--gold:#C9A84C;--cream:#F8F5EF;
     --white:#FFFFFF;--gray1:#F2EFE9;--gray2:#D8D3C8;--gray3:#9A9488;
     --green:#2D7A4F;--red:#B83232;--dt:#0077B6;--cp:#7B2D8B;
-    --shadow:0 4px 24px rgba(26,39,68,.10);--shadow2:0 8px 40px rgba(26,39,68,.16);
+    --shadow:0 4px 24px rgba(26,39,68,.10);
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh;}
 
-  /* GATE */
+  /* ── GATE ── */
   #gate{position:fixed;inset:0;background:var(--navy);z-index:1000;display:flex;align-items:center;justify-content:center;}
-  .gate-box{background:var(--white);border-radius:16px;padding:44px 48px;width:100%;max-width:460px;box-shadow:0 24px 80px rgba(0,0,0,.35);text-align:center;}
-  .gate-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;}
-  .gate-logo span{color:var(--gold);}
-  .gate-sub{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:28px;letter-spacing:.04em;}
-  .gate-lbl{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.08em;text-align:left;margin-bottom:8px;font-family:'DM Mono',monospace;}
-  .gate-input{width:100%;border:1.5px solid var(--gray2);border-radius:8px;padding:12px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--navy);outline:none;transition:border-color .2s;margin-bottom:8px;}
-  .gate-input:focus{border-color:var(--gold);}
-  .gate-hint{font-size:11px;color:var(--gray3);text-align:left;margin-bottom:16px;line-height:1.6;}
-  .gate-hint a{color:var(--gold);text-decoration:none;}
-  .gate-remember{display:flex;align-items:center;gap:8px;margin-bottom:18px;text-align:left;}
-  .gate-remember input{accent-color:var(--gold);cursor:pointer;}
-  .gate-remember label{font-size:12px;color:var(--gray3);cursor:pointer;}
-  .gate-btn{width:100%;background:var(--navy);color:var(--white);border:none;border-radius:8px;padding:13px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;}
-  .gate-btn:hover{background:var(--navy2);}
-  .gate-err{color:var(--red);font-size:12px;margin-top:10px;display:none;font-family:'DM Mono',monospace;}
+  .gbox{background:var(--white);border-radius:16px;padding:44px 48px;width:100%;max-width:460px;box-shadow:0 24px 80px rgba(0,0,0,.35);text-align:center;}
+  .glogo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;}
+  .glogo span{color:var(--gold);}
+  .gsub{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:28px;letter-spacing:.04em;}
+  .glbl{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.08em;text-align:left;margin-bottom:8px;font-family:'DM Mono',monospace;}
+  .ginput{width:100%;border:1.5px solid var(--gray2);border-radius:8px;padding:12px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--navy);outline:none;transition:border-color .2s;margin-bottom:8px;}
+  .ginput:focus{border-color:var(--gold);}
+  .ghint{font-size:11px;color:var(--gray3);text-align:left;margin-bottom:16px;line-height:1.6;}
+  .ghint a{color:var(--gold);text-decoration:none;}
+  .grem{display:flex;align-items:center;gap:8px;margin-bottom:18px;text-align:left;}
+  .grem input{accent-color:var(--gold);cursor:pointer;}
+  .grem label{font-size:12px;color:var(--gray3);cursor:pointer;}
+  .gbtn{width:100%;background:var(--navy);color:var(--white);border:none;border-radius:8px;padding:13px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;}
+  .gbtn:hover{background:var(--navy2);}
+  .gerr{color:var(--red);font-size:12px;margin-top:10px;display:none;font-family:'DM Mono',monospace;}
 
-  /* HEADER */
+  /* ── HEADER ── */
   header{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.18);}
   .logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);}
   .logo span{color:var(--gold);}
-  .hdr-right{display:flex;align-items:center;gap:16px;}
-  .hdr-date{font-family:'DM Mono',monospace;font-size:12px;color:var(--gray2);}
-  .key-btn{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);border:1px solid rgba(201,168,76,.4);border-radius:4px;padding:3px 8px;cursor:pointer;background:transparent;letter-spacing:.06em;}
+  .hright{display:flex;align-items:center;gap:16px;}
+  .hdate{font-family:'DM Mono',monospace;font-size:12px;color:var(--gray2);}
+  .kbtn{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);border:1px solid rgba(201,168,76,.4);border-radius:4px;padding:3px 8px;cursor:pointer;background:transparent;letter-spacing:.06em;}
 
-  /* LAYOUT */
+  /* ── MAIN ── */
   main{max-width:1280px;margin:0 auto;padding:32px 32px 64px;}
-  .page-title{margin-bottom:28px;border-left:3px solid var(--gold);padding-left:16px;}
-  .page-title h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;}
-  .page-title p{font-size:13px;color:var(--gray3);margin-top:4px;font-family:'DM Mono',monospace;}
+  .ptitle{margin-bottom:28px;border-left:3px solid var(--gold);padding-left:16px;}
+  .ptitle h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;}
+  .ptitle p{font-size:13px;color:var(--gray3);margin-top:4px;font-family:'DM Mono',monospace;}
 
-  /* UPLOAD */
-  .upload-section{background:var(--white);border-radius:12px;border:1px solid var(--gray2);padding:28px 32px;margin-bottom:28px;box-shadow:var(--shadow);}
-  .upload-section h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;margin-bottom:6px;}
-  .upload-note{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:18px;}
-  .upload-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
+  /* ── UPLOAD ── */
+  .upsec{background:var(--white);border-radius:12px;border:1px solid var(--gray2);padding:28px 32px;margin-bottom:28px;box-shadow:var(--shadow);}
+  .upsec h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;margin-bottom:6px;}
+  .upnote{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:18px;}
+  .upgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
   .ucard{border:1.5px dashed var(--gray2);border-radius:10px;padding:20px 16px;text-align:center;cursor:pointer;transition:all .2s;background:var(--gray1);position:relative;}
   .ucard:hover{border-color:var(--gold);background:#FBF8F2;}
-  .ucard.has-file{border-style:solid;border-color:var(--green);background:#F0F8F4;}
-  .ucard.budget.has-file{border-color:var(--gold);background:#FBF8EE;}
+  .ucard.done{border-style:solid;border-color:var(--green);background:#F0F8F4;}
+  .ucard.bgt.done{border-color:var(--gold);background:#FBF8EE;}
   .ucard input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-  .uicon{font-size:24px;margin-bottom:8px;}
+  .uico{font-size:24px;margin-bottom:8px;}
   .ulbl{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px;}
   .usub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;}
-  .ufname{font-size:11px;color:var(--green);margin-top:6px;font-family:'DM Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:none;}
-  .budget .ufname{color:#b8860b;}
-  .analyze-btn{margin-top:18px;background:var(--navy);color:var(--white);border:none;border-radius:8px;padding:12px 28px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;gap:8px;}
-  .analyze-btn:hover{background:var(--navy2);}
-  .analyze-btn:disabled{opacity:.5;cursor:not-allowed;}
-  #upStatus{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-left:14px;}
+  .ufn{font-size:11px;color:var(--green);margin-top:6px;font-family:'DM Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:none;}
+  .bgt .ufn{color:#b8860b;}
+  .abtn{margin-top:18px;background:var(--navy);color:var(--white);border:none;border-radius:8px;padding:12px 28px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;gap:8px;}
+  .abtn:hover{background:var(--navy2);}
+  .abtn:disabled{opacity:.5;cursor:not-allowed;}
+  #upst{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-left:14px;}
 
-  /* PROCESSING */
-  .proc-bar{display:none;background:var(--white);border-radius:10px;padding:20px 24px;margin-bottom:20px;box-shadow:var(--shadow);border-left:4px solid var(--gold);align-items:center;gap:16px;}
-  .proc-bar.on{display:flex;}
-  .spinner{width:20px;height:20px;border:2.5px solid var(--gray2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+  /* ── PROGRESS ── */
+  .pbar{display:none;background:var(--white);border-radius:10px;padding:20px 24px;margin-bottom:20px;box-shadow:var(--shadow);border-left:4px solid var(--gold);align-items:center;gap:16px;}
+  .pbar.on{display:flex;}
+  .spin{width:20px;height:20px;border:2.5px solid var(--gray2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
   @keyframes spin{to{transform:rotate(360deg);}}
-  .proc-txt{font-size:13px;font-weight:500;}
-  .proc-sub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-top:2px;}
+  .ptxt{font-size:13px;font-weight:500;}
+  .psub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-top:2px;}
 
-  /* TABS */
+  /* ── TABS ── */
   .tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--white);padding:6px;border-radius:10px;border:1px solid var(--gray2);width:fit-content;box-shadow:var(--shadow);}
   .tab{padding:8px 22px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--gray3);border:none;background:transparent;}
   .tab.adt{background:var(--dt);color:white;}
   .tab.acp{background:var(--cp);color:white;}
   .tab.aboth{background:var(--navy);color:white;}
 
-  /* KPI CARDS */
-  .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px;}
+  /* ── KPI ── */
+  .kgrid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px;}
   .kcard{background:var(--white);border-radius:10px;padding:18px 16px;box-shadow:var(--shadow);border-top:3px solid var(--gray2);}
   .kcard.cdt{border-top-color:var(--dt);} .kcard.ccp{border-top-color:var(--cp);} .kcard.cboth{border-top-color:var(--navy);}
   .klbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray3);margin-bottom:8px;font-family:'DM Mono',monospace;}
@@ -93,17 +93,17 @@
   .pos{color:var(--green);} .neg{color:var(--red);} .neu{color:var(--gray3);}
   .ksub{font-size:10px;color:var(--gray3);margin-top:2px;font-family:'DM Mono',monospace;}
 
-  /* CHARTS */
-  .charts-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:24px;}
-  .chart-card{background:var(--white);border-radius:12px;padding:24px;box-shadow:var(--shadow);}
-  .chart-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:4px;}
-  .chart-sub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:16px;}
-  .chart-wrap{position:relative;height:220px;}
+  /* ── CHARTS ── */
+  .cgrid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:24px;}
+  .ccard{background:var(--white);border-radius:12px;padding:24px;box-shadow:var(--shadow);}
+  .ctitle{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:4px;}
+  .csub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:16px;}
+  .cwrap{position:relative;height:220px;}
 
-  /* TABLE */
-  .tbl-card{background:var(--white);border-radius:12px;padding:24px;box-shadow:var(--shadow);margin-bottom:24px;overflow-x:auto;}
-  .tbl-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:4px;}
-  .tbl-sub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:16px;}
+  /* ── TABLE ── */
+  .tcard{background:var(--white);border-radius:12px;padding:24px;box-shadow:var(--shadow);margin-bottom:24px;overflow-x:auto;}
+  .ttitle{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:4px;}
+  .tsub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:16px;}
   table{width:100%;border-collapse:collapse;font-size:13px;}
   thead tr{border-bottom:2px solid var(--navy);}
   thead th{text-align:left;padding:8px 12px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);font-family:'DM Mono',monospace;}
@@ -115,483 +115,586 @@
   td.mn{font-weight:600;}
   .sr td{background:var(--navy);color:white!important;font-size:10px!important;font-weight:700!important;letter-spacing:.06em;text-transform:uppercase;}
 
-  /* INSIGHT */
+  /* ── INSIGHT ── */
   .insight{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:12px;padding:20px 24px;margin-bottom:24px;display:none;gap:16px;align-items:flex-start;}
   .insight.on{display:flex;}
-  .insight-icon{font-size:22px;flex-shrink:0;}
-  .insight-title{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-family:'DM Mono',monospace;}
-  .insight-text{color:rgba(255,255,255,.88);font-size:13px;line-height:1.6;}
+  .iico{font-size:22px;flex-shrink:0;}
+  .ititle{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-family:'DM Mono',monospace;}
+  .itext{color:rgba(255,255,255,.88);font-size:13px;line-height:1.6;}
 
-  /* EMPTY */
+  /* ── EMPTY ── */
   .empty{background:var(--white);border-radius:12px;padding:60px 40px;text-align:center;box-shadow:var(--shadow);border:1px dashed var(--gray2);}
   .empty h3{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px;}
   .empty p{font-size:13px;color:var(--gray3);line-height:1.6;}
 
-  @media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr);}.charts-grid{grid-template-columns:1fr;}.upload-grid{grid-template-columns:1fr;}}
+  @media(max-width:900px){
+    .kgrid{grid-template-columns:repeat(3,1fr);}
+    .cgrid{grid-template-columns:1fr;}
+    .upgrid{grid-template-columns:1fr;}
+  }
 </style>
 </head>
 <body>
 
 <!-- GATE -->
 <div id="gate">
-  <div class="gate-box">
-    <div class="gate-logo">Augusta Hotel <span>Properties</span></div>
-    <div class="gate-sub">Revenue Intelligence Dashboard</div>
-    <div class="gate-lbl">Anthropic API Key</div>
-    <input class="gate-input" type="password" id="keyInput" placeholder="Enter your Anthropic API key"
+  <div class="gbox">
+    <div class="glogo">Augusta Hotel <span>Properties</span></div>
+    <div class="gsub">Revenue Intelligence Dashboard</div>
+    <div class="glbl">Anthropic API Key</div>
+    <input class="ginput" type="password" id="keyInput" placeholder="Enter your Anthropic API key"
       onkeydown="if(event.key==='Enter')unlock()">
-    <div class="gate-hint">
+    <div class="ghint">
       Your key goes directly to Anthropic — never stored on any server.<br>
       Get one at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys.
     </div>
-    <div class="gate-remember">
-      <input type="checkbox" id="rememberKey">
-      <label for="rememberKey">Remember on this device</label>
+    <div class="grem">
+      <input type="checkbox" id="remKey">
+      <label for="remKey">Remember on this device</label>
     </div>
-    <button class="gate-btn" onclick="unlock()">Open Dashboard →</button>
-    <div class="gate-err" id="gateErr">Please enter your Anthropic API key</div>
+    <button class="gbtn" onclick="unlock()">Open Dashboard →</button>
+    <div class="gerr" id="gerr">Please enter your Anthropic API key</div>
   </div>
 </div>
 
+<!-- HEADER -->
 <header>
   <div class="logo">Augusta Hotel <span>Properties</span></div>
-  <div class="hdr-right">
-    <div class="hdr-date" id="hdrDate"></div>
-    <button class="key-btn" onclick="document.getElementById('gate').style.display='flex'">🔑 Change Key</button>
+  <div class="hright">
+    <div class="hdate" id="hdate"></div>
+    <button class="kbtn" onclick="document.getElementById('gate').style.display='flex'">🔑 Change Key</button>
   </div>
 </header>
 
 <main>
-  <div class="page-title">
+  <div class="ptitle">
     <h1>Revenue Intelligence Dashboard</h1>
     <p>DoubleTree by Hilton Augusta  ·  Crowne Plaza North Augusta</p>
   </div>
 
-  <div class="upload-section">
+  <!-- UPLOAD -->
+  <div class="upsec">
     <h2>Upload Reports</h2>
-    <div class="upload-note">Accepts PDF, TXT, or CSV. Upload the 2026 Budget once — it persists as your baseline.</div>
-    <div class="upload-grid">
-      <div class="ucard budget" id="budgetCard">
-        <input type="file" accept=".pdf,.txt,.csv" id="budgetFile" onchange="handleFile('budget',this)">
-        <div class="uicon">📋</div>
+    <div class="upnote">Accepts PDF (text or scanned), TXT, or CSV. Budget uploads once and stays as your baseline.</div>
+    <div class="upgrid">
+      <div class="ucard bgt" id="cBudget">
+        <input type="file" accept=".pdf,.txt,.csv" id="fBudget" onchange="handleFile('budget',this)">
+        <div class="uico">📋</div>
         <div class="ulbl">2026 Budget</div>
         <div class="usub">Upload once · both properties</div>
-        <div class="ufname" id="budgetName"></div>
+        <div class="ufn" id="nBudget"></div>
       </div>
-      <div class="ucard" id="dtCard">
-        <input type="file" accept=".pdf,.txt,.csv" id="dtFile" onchange="handleFile('dt',this)" multiple>
-        <div class="uicon">🏨</div>
+      <div class="ucard" id="cDT">
+        <input type="file" accept=".pdf,.txt,.csv" id="fDT" onchange="handleFile('dt',this)" multiple>
+        <div class="uico">🏨</div>
         <div class="ulbl">DoubleTree Augusta</div>
         <div class="usub">Daily · history · forecast</div>
-        <div class="ufname" id="dtName"></div>
+        <div class="ufn" id="nDT"></div>
       </div>
-      <div class="ucard" id="cpCard">
-        <input type="file" accept=".pdf,.txt,.csv" id="cpFile" onchange="handleFile('cp',this)" multiple>
-        <div class="uicon">🏩</div>
+      <div class="ucard" id="cCP">
+        <input type="file" accept=".pdf,.txt,.csv" id="fCP" onchange="handleFile('cp',this)" multiple>
+        <div class="uico">🏩</div>
         <div class="ulbl">Crowne Plaza N. Augusta</div>
         <div class="usub">Daily · history · forecast</div>
-        <div class="ufname" id="cpName"></div>
+        <div class="ufn" id="nCP"></div>
       </div>
     </div>
     <div style="display:flex;align-items:center;flex-wrap:wrap;margin-top:18px;">
-      <button class="analyze-btn" id="analyzeBtn" onclick="processFiles()" disabled>⚡ Analyze Reports</button>
-      <span id="upStatus">Upload at least one property report to begin</span>
+      <button class="abtn" id="abtn" onclick="run()" disabled>⚡ Analyze Reports</button>
+      <span id="upst">Upload at least one property report to begin</span>
     </div>
   </div>
 
-  <div class="proc-bar" id="procBar">
-    <div class="spinner"></div>
+  <!-- PROGRESS -->
+  <div class="pbar" id="pbar">
+    <div class="spin"></div>
     <div>
-      <div class="proc-txt" id="procTxt">Reading files...</div>
-      <div class="proc-sub" id="procSub">Extracting revenue, occupancy, ADR and budget data</div>
+      <div class="ptxt" id="ptxt">Reading files...</div>
+      <div class="psub" id="psub">Preparing to analyze your reports</div>
     </div>
   </div>
 
-  <div id="dashboard" style="display:none">
-    <div class="insight" id="insightBanner">
-      <div class="insight-icon">✦</div>
-      <div>
-        <div class="insight-title">AI Summary</div>
-        <div class="insight-text" id="insightText">Generating...</div>
-      </div>
+  <!-- DASHBOARD -->
+  <div id="dash" style="display:none">
+    <div class="insight" id="ins">
+      <div class="iico">✦</div>
+      <div><div class="ititle">AI Summary</div><div class="itext" id="itxt">Generating...</div></div>
     </div>
     <div class="tabs">
-      <button class="tab adt" id="tabDT" onclick="switchProp('dt')">DoubleTree Augusta</button>
-      <button class="tab" id="tabCP" onclick="switchProp('cp')">Crowne Plaza N. Augusta</button>
-      <button class="tab" id="tabBoth" onclick="switchProp('both')">Combined</button>
+      <button class="tab adt" id="tDT" onclick="show('dt')">DoubleTree Augusta</button>
+      <button class="tab" id="tCP" onclick="show('cp')">Crowne Plaza N. Augusta</button>
+      <button class="tab" id="tBoth" onclick="show('both')">Combined</button>
     </div>
-    <div class="kpi-grid" id="kpiGrid"></div>
-    <div class="charts-grid">
-      <div class="chart-card">
-        <div class="chart-title">Revenue vs. Budget</div>
-        <div class="chart-sub">Daily actual vs. 2026 budget</div>
-        <div class="chart-wrap"><canvas id="revChart"></canvas></div>
+    <div class="kgrid" id="kgrid"></div>
+    <div class="cgrid">
+      <div class="ccard">
+        <div class="ctitle">Revenue vs. Budget</div>
+        <div class="csub">Actual vs. 2026 budget</div>
+        <div class="cwrap"><canvas id="rchart"></canvas></div>
       </div>
-      <div class="chart-card">
-        <div class="chart-title">Occupancy Trend</div>
-        <div class="chart-sub">Daily occupancy % vs. budget</div>
-        <div class="chart-wrap"><canvas id="occChart"></canvas></div>
+      <div class="ccard">
+        <div class="ctitle">Occupancy Trend</div>
+        <div class="csub">Actual % vs. budget</div>
+        <div class="cwrap"><canvas id="ochart"></canvas></div>
       </div>
     </div>
-    <div class="tbl-card">
-      <div class="tbl-title">Detail — Actual vs. Budget</div>
-      <div class="tbl-sub">Extracted from uploaded reports</div>
+    <div class="tcard">
+      <div class="ttitle">Detail — Actual vs. Budget</div>
+      <div class="tsub">Extracted from uploaded reports</div>
       <table>
         <thead><tr>
           <th>Metric</th><th>Today</th><th>MTD Actual</th><th>MTD Budget</th>
           <th>Var $</th><th>Var %</th><th>YTD Actual</th><th>YTD Budget</th>
         </tr></thead>
-        <tbody id="tblBody"></tbody>
+        <tbody id="tbody"></tbody>
       </table>
     </div>
   </div>
 
-  <div class="empty" id="emptyState">
+  <!-- EMPTY -->
+  <div class="empty" id="empty">
     <div style="font-size:48px;margin-bottom:16px;opacity:.5">📊</div>
     <h3>Ready to Analyze</h3>
     <p>Upload your 2026 budget and daily revenue reports.<br>
-    Claude AI extracts all key metrics and compares to budget automatically.</p>
+    Claude AI reads the PDFs and compares everything to budget automatically.</p>
   </div>
 </main>
 
 <script>
-let API_KEY = '';
-const S = {budget:null,dt:null,cp:null,active:'dt',data:{dt:null,cp:null}};
-let RC=null, OC=null;
+// ── STATE ──────────────────────────────────────────────────────
+let KEY = '';
+const FILES = {budget:null, dt:null, cp:null};
+const DATA  = {dt:null, cp:null};
+let active = 'dt';
+let RC = null, OC = null;
 
-document.getElementById('hdrDate').textContent =
+document.getElementById('hdate').textContent =
   new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-// Auto-load saved key
+// ── GATE ───────────────────────────────────────────────────────
 (function(){
   try {
-    const k = localStorage.getItem('ahp_key');
+    const k = localStorage.getItem('ahp_k');
     if(k && k.length > 10){
-      API_KEY=k;
-      document.getElementById('keyInput').value=k;
-      document.getElementById('rememberKey').checked=true;
-      document.getElementById('gate').style.display='none';
+      KEY = k;
+      document.getElementById('keyInput').value = k;
+      document.getElementById('remKey').checked = true;
+      document.getElementById('gate').style.display = 'none';
     }
   } catch(e){}
 })();
 
 function unlock(){
   const k = document.getElementById('keyInput').value.trim();
-  if(!k || k.length < 10){ document.getElementById('gateErr').style.display='block'; return; }
-  API_KEY = k;
-  if(document.getElementById('rememberKey').checked){ try{ localStorage.setItem('ahp_key',k); }catch(e){} }
-  document.getElementById('gate').style.display='none';
+  if(!k || k.length < 10){ document.getElementById('gerr').style.display='block'; return; }
+  KEY = k;
+  if(document.getElementById('remKey').checked){
+    try{ localStorage.setItem('ahp_k', k); }catch(e){}
+  }
+  document.getElementById('gate').style.display = 'none';
 }
 
+// ── FILE HANDLING ──────────────────────────────────────────────
 function handleFile(type, input){
   if(!input.files.length) return;
-  S[type] = input.files;
-  const card = document.getElementById(type==='budget'?'budgetCard':type+'Card');
-  const name = document.getElementById(type==='budget'?'budgetName':type+'Name');
-  card.classList.add('has-file');
-  name.style.display='block';
-  name.textContent = input.files.length>1 ? input.files.length+' files selected' : input.files[0].name;
-  const has = S.dt||S.cp;
-  document.getElementById('analyzeBtn').disabled=!has;
-  document.getElementById('upStatus').textContent = has
-    ? (S.budget?'✓ Ready — budget + property report loaded':'⚠ No budget uploaded — will analyze without comparison')
+  FILES[type] = input.files;
+  const cardId = type==='budget' ? 'cBudget' : type==='dt' ? 'cDT' : 'cCP';
+  const nameId = type==='budget' ? 'nBudget' : type==='dt' ? 'nDT' : 'nCP';
+  document.getElementById(cardId).classList.add('done');
+  const nel = document.getElementById(nameId);
+  nel.style.display = 'block';
+  nel.textContent = input.files.length > 1
+    ? input.files.length + ' files selected'
+    : input.files[0].name;
+  const hasProperty = FILES.dt || FILES.cp;
+  document.getElementById('abtn').disabled = !hasProperty;
+  document.getElementById('upst').textContent = hasProperty
+    ? (FILES.budget ? '✓ Budget + property report ready' : '⚠ No budget — will analyze without comparison')
     : 'Upload at least one property report to begin';
 }
 
-async function readFile(file){
-  // Text / CSV — read directly
-  if(file.type.includes('text')||file.name.endsWith('.csv')||file.name.endsWith('.txt')){
-    return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=rej;r.readAsText(file);});
-  }
-  // PDF — first try PDF.js text extraction (works for text-based PDFs)
-  if(window.pdfjsLib){
-    try {
-      const buf=await file.arrayBuffer();
-      const pdf=await pdfjsLib.getDocument({data:buf}).promise;
-      let txt='';
-      for(let i=1;i<=pdf.numPages;i++){
-        const pg=await pdf.getPage(i);
-        const c=await pg.getTextContent();
-        txt+=c.items.map(x=>x.str).join(' ')+'\n';
-      }
-      // If we got meaningful text, use it
-      if(txt.replace(/\s/g,'').length > 100) return txt;
-    } catch(e){ console.warn('PDF.js text extraction failed, trying base64',e); }
-  }
-  // Fallback: read as base64 and send to Claude vision API
-  return new Promise((res,rej)=>{
-    const r=new FileReader();
-    r.onload=e=>{
-      // Store as base64 object for vision API
-      const b64=e.target.result.split(',')[1];
-      res({type:'pdf_base64', name:file.name, data:b64, mediaType:'application/pdf'});
-    };
-    r.onerror=rej;
-    r.readAsDataURL(file);
-  });
-}
-
-function loadPdfJs(){
-  return new Promise(res=>{
-    if(window.pdfjsLib){res();return;}
-    const s=document.createElement('script');
-    s.src='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';
-    s.onload=()=>{
-      try{ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js'; }catch(e){}
-      res();
-    };
-    s.onerror=()=>res();
-    document.head.appendChild(s);
-  });
-}
-
-async function readAll(files){
-  const results=[];
-  for(const f of Array.from(files)){
-    const r=await readFile(f);
-    results.push(r);
+// ── READ FILES ─────────────────────────────────────────────────
+// Returns array of {type:'text'|'pdf', content:string|base64}
+async function readFiles(fileList){
+  const results = [];
+  for(const file of Array.from(fileList)){
+    // Text/CSV — read as text
+    if(file.type.includes('text') || file.name.endsWith('.csv') || file.name.endsWith('.txt')){
+      const text = await new Promise((res,rej) => {
+        const r = new FileReader();
+        r.onload = e => res(e.target.result);
+        r.onerror = rej;
+        r.readAsText(file);
+      });
+      results.push({kind:'text', content:text, name:file.name});
+      continue;
+    }
+    // PDF — try text extraction first
+    if(window.pdfjsLib){
+      try {
+        const buf = await file.arrayBuffer();
+        const pdf = await pdfjsLib.getDocument({data:buf}).promise;
+        let txt = '';
+        for(let i=1; i<=pdf.numPages; i++){
+          const pg = await pdf.getPage(i);
+          const c  = await pg.getTextContent();
+          txt += c.items.map(x=>x.str).join(' ') + '\n';
+        }
+        if(txt.replace(/\s/g,'').length > 150){
+          results.push({kind:'text', content:txt, name:file.name});
+          continue;
+        }
+      } catch(e){ console.warn('PDF.js failed for', file.name, e); }
+    }
+    // Fallback — send as base64 document for Claude vision
+    const b64 = await new Promise((res,rej) => {
+      const r = new FileReader();
+      r.onload = e => res(e.target.result.split(',')[1]);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+    results.push({kind:'pdf', content:b64, name:file.name});
   }
   return results;
 }
 
-async function processFiles(){
-  const bar=document.getElementById('procBar');
-  const btn=document.getElementById('analyzeBtn');
-  bar.classList.add('on'); btn.disabled=true;
-  document.getElementById('emptyState').style.display='none';
+function loadPdfJs(){
+  return new Promise(res => {
+    if(window.pdfjsLib){ res(); return; }
+    const s = document.createElement('script');
+    s.src = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';
+    s.onload = () => {
+      try{ pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js'; }catch(e){}
+      res();
+    };
+    s.onerror = () => res(); // fail silently — will use base64 fallback
+    document.head.appendChild(s);
+  });
+}
+
+// ── MAIN RUN ───────────────────────────────────────────────────
+async function run(){
+  const pbar = document.getElementById('pbar');
+  const abtn = document.getElementById('abtn');
+  pbar.classList.add('on');
+  abtn.disabled = true;
+  document.getElementById('empty').style.display = 'none';
+
   try {
-    setP('Loading PDF reader...','Preparing to read your reports');
+    setP('Loading PDF reader...', 'Preparing to read your reports');
     await loadPdfJs();
-    setP('Reading files...','Extracting text from uploaded reports');
-    const texts={};
-    if(S.budget) texts.budget=await readAll(S.budget);
-    if(S.dt)     texts.dt=await readAll(S.dt);
-    if(S.cp)     texts.cp=await readAll(S.cp);
-    setP('Sending to Claude AI...','Parsing revenue, occupancy, ADR, and budget data');
-    const parsed=await parseData(texts);
-    setP('Building dashboard...','Rendering charts and comparison table');
-    S.data=parsed;
-    renderDashboard();
+
+    setP('Reading files...', 'Extracting content from uploaded reports');
+    const allFiles = {};
+    if(FILES.budget) allFiles.budget = await readFiles(FILES.budget);
+    if(FILES.dt)     allFiles.dt     = await readFiles(FILES.dt);
+    if(FILES.cp)     allFiles.cp     = await readFiles(FILES.cp);
+
+    setP('Sending to Claude AI...', 'Parsing revenue, occupancy, ADR, and budget data');
+    const parsed = await parseWithClaude(allFiles);
+
+    setP('Building dashboard...', 'Rendering charts and tables');
+    DATA.dt = parsed.dt || null;
+    DATA.cp = parsed.cp || null;
+
+    document.getElementById('dash').style.display = 'block';
+    show(active);
     getInsight(parsed);
+
   } catch(err){
-    console.error(err);
-    document.getElementById('procTxt').textContent='⚠ Error: '+err.message;
-    document.getElementById('procSub').textContent='Check your API key and try again.';
-    btn.disabled=false;
-    bar.classList.remove('on');
+    console.error('Run error:', err);
+    document.getElementById('ptxt').textContent = '⚠ ' + err.message;
+    document.getElementById('psub').textContent = 'Open browser console (F12) for details.';
+    abtn.disabled = false;
     return;
   }
-  bar.classList.remove('on'); btn.disabled=false;
+
+  pbar.classList.remove('on');
+  abtn.disabled = false;
 }
 
-function setP(t,s){
-  document.getElementById('procTxt').textContent=t;
-  document.getElementById('procSub').textContent=s;
+function setP(t, s){
+  document.getElementById('ptxt').textContent = t;
+  document.getElementById('psub').textContent = s;
 }
 
-async function callClaude(prompt){
-  const res=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'x-api-key':API_KEY,
-      'anthropic-version':'2023-06-01',
-      'anthropic-dangerous-direct-browser-access':'true'
+// ── CLAUDE API ─────────────────────────────────────────────────
+async function callClaude(msgContent, maxTokens){
+  const res = await fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': KEY,
+      'anthropic-version': '2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
     },
-    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content:prompt}]})
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-5',
+      max_tokens: maxTokens || 2000,
+      messages: [{ role:'user', content: msgContent }]
+    })
   });
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||'API error '+res.status);}
-  const d=await res.json();
+  if(!res.ok){
+    const e = await res.json().catch(() => ({}));
+    console.error('Claude API error:', e);
+    throw new Error(e.error?.message || 'API error ' + res.status);
+  }
+  const d = await res.json();
+  if(!d.content?.[0]?.text) throw new Error('Empty response from Claude API');
   return d.content[0].text;
 }
 
-function emptyProp(){
-  return {
-    today:{occupancy:0,adr:0,revpar:0,rooms_sold:0,total_revenue:0},
-    mtd:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
-    mtd_budget:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
-    ytd:{occupancy:0,adr:0,total_revenue:0,ebitda:0},
-    ytd_budget:{occupancy:0,adr:0,total_revenue:0,ebitda:0},
-    trend_labels:[],trend_actual:[],trend_budget:[],occ_trend_actual:[],occ_trend_budget:[]
-  };
-}
+// ── BUILD MESSAGE WITH TEXT + PDF DOCS ─────────────────────────
+function buildMessages(allFiles){
+  const parts = [];
 
-// Build message content handling both text and base64 PDFs
-function buildContent(fileResults, label) {
-  if(!fileResults) return '';
-  const parts=[];
-  let hasBase64=false;
-  for(const r of fileResults){
-    if(r && typeof r === 'object' && r.type==='pdf_base64'){
-      hasBase64=true;
-    }
-  }
-  return {texts: fileResults.filter(r=>typeof r==='string').join('\n\n---\n\n'),
-          pdfs: fileResults.filter(r=>r && typeof r==='object' && r.type==='pdf_base64'),
-          hasBase64};
-}
-
-async function parseData(texts){
-  const jsonSchema=`{
+  const schema = `{
   "dt": {
-    "today":{"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_sold":0,"total_revenue":0},
-    "mtd":{"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0},
-    "mtd_budget":{"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0},
-    "ytd":{"occupancy":0.0,"adr":0.0,"total_revenue":0,"ebitda":0},
-    "ytd_budget":{"occupancy":0.0,"adr":0.0,"total_revenue":0,"ebitda":0},
+    "today":      {"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_sold":0,"total_revenue":0},
+    "mtd":        {"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0},
+    "mtd_budget": {"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0},
+    "ytd":        {"occupancy":0.0,"adr":0.0,"total_revenue":0,"ebitda":0},
+    "ytd_budget": {"occupancy":0.0,"adr":0.0,"total_revenue":0,"ebitda":0},
     "trend_labels":[],"trend_actual":[],"trend_budget":[],"occ_trend_actual":[],"occ_trend_budget":[]
   },
-  "cp": { same structure as dt },
+  "cp": { ...same structure as dt... },
   "hasBudget": false
 }`;
 
-  const instruction=`Analyze these hotel revenue reports for Augusta Hotel Properties. Return ONLY valid JSON, no markdown, no explanation.
-dt = DoubleTree by Hilton Augusta. cp = Crowne Plaza North Augusta. Use 0 for missing values. Extract daily trends up to 31 values if available.
-JSON structure: ${jsonSchema}`;
+  parts.push({ type:'text', text:
+    `You are analyzing hotel revenue reports for Augusta Hotel Properties (Flacks Capital LLC).
+Properties: DoubleTree by Hilton Augusta (key "dt") and Crowne Plaza North Augusta (key "cp").
 
-  // Build message content array for vision API (handles image-based PDFs)
-  const msgContent=[];
-  msgContent.push({type:'text',text:instruction});
+Extract all financial data from the documents below and return ONLY a valid JSON object — no markdown fences, no explanation, just raw JSON.
 
-  // Add any base64 PDFs as document blocks
-  for(const key of ['budget','dt','cp']){
-    if(!texts[key]) continue;
-    const label=key==='budget'?'BUDGET':key==='dt'?'DOUBLETREE':'CROWNE PLAZA';
-    for(const r of texts[key]){
-      if(typeof r==='string' && r.length>0){
-        msgContent.push({type:'text',text:`\n${label} TEXT DATA:\n${r.slice(0,4000)}`});
-      } else if(r && r.type==='pdf_base64'){
-        msgContent.push({type:'text',text:`\n${label} PDF FILE (${r.name}):`});
-        msgContent.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:r.data}});
+Rules:
+- Use 0 for any value not found (never null)
+- occupancy values should be decimals (0.72 not 72)
+- revenue values in dollars (not thousands)
+- trend arrays: up to 31 daily values if available
+- hasBudget: true if budget document was provided
+
+Required JSON structure:
+${schema}`
+  });
+
+  // Add each file group
+  const groups = [
+    {key:'budget', label:'2026 BUDGET'},
+    {key:'dt',     label:'DOUBLETREE BY HILTON AUGUSTA — REVENUE REPORT'},
+    {key:'cp',     label:'CROWNE PLAZA NORTH AUGUSTA — REVENUE REPORT'}
+  ];
+
+  for(const {key, label} of groups){
+    if(!allFiles[key]) continue;
+    parts.push({type:'text', text:`\n\n--- ${label} ---`});
+    for(const file of allFiles[key]){
+      if(file.kind === 'text'){
+        // Truncate very long text files to avoid token limits
+        const txt = file.content.length > 8000 ? file.content.slice(0,8000) + '\n[...truncated]' : file.content;
+        parts.push({type:'text', text:`File: ${file.name}\n${txt}`});
+      } else {
+        // PDF as base64 document block
+        parts.push({type:'text', text:`File: ${file.name} (PDF)`});
+        parts.push({
+          type:'document',
+          source:{type:'base64', media_type:'application/pdf', data:file.content}
+        });
       }
     }
   }
 
-  const res=await fetch('https://api.anthropic.com/v1/messages',{
-    method:'POST',
-    headers:{
-      'Content-Type':'application/json',
-      'x-api-key':API_KEY,
-      'anthropic-version':'2023-06-01',
-      'anthropic-dangerous-direct-browser-access':'true'
-    },
-    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content:msgContent}]})
-  });
-  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||'API error '+res.status);}
-  const d=await res.json();
-  const raw=d.content[0].text;
-  const clean=raw.replace(/```json|```/g,'').trim();
-  const m=clean.match(/\{[\s\S]*\}/);
-  try{ return JSON.parse(m?m[0]:clean); }
-  catch(e){
-    console.warn('JSON parse failed:',e.message);
-    return {dt:S.dt?emptyProp():null,cp:S.cp?emptyProp():null,hasBudget:!!S.budget};
+  return parts;
+}
+
+async function parseWithClaude(allFiles){
+  const msgContent = buildMessages(allFiles);
+  const raw = await callClaude(msgContent, 2000);
+  const clean = raw.replace(/```json|```/g,'').trim();
+  const match = clean.match(/\{[\s\S]*\}/);
+  try{
+    return JSON.parse(match ? match[0] : clean);
+  } catch(e){
+    console.warn('JSON parse failed:', e.message, '\nRaw response:', raw.slice(0,500));
+    return {
+      dt: FILES.dt ? emptyProp() : null,
+      cp: FILES.cp ? emptyProp() : null,
+      hasBudget: !!FILES.budget
+    };
   }
 }
 
 async function getInsight(parsed){
-  const b=document.getElementById('insightBanner');
-  b.classList.add('on');
-  document.getElementById('insightText').textContent='Generating analysis...';
-  const dt=parsed.dt||{},cp=parsed.cp||{};
-  const prompt=`You are an internal analyst for Augusta Hotel Properties (owner: Flacks Capital LLC). Write 2-3 sentences of direct executive insight on current performance. Use specific numbers. Under 65 words. Speak to the owner.
+  const banner = document.getElementById('ins');
+  banner.classList.add('on');
+  document.getElementById('itxt').textContent = 'Generating analysis...';
+  const dt = parsed.dt || {}, cp = parsed.cp || {};
+  const prompt = [{type:'text', text:
+    `You are an internal analyst for Augusta Hotel Properties (Flacks Capital LLC). Write 2-3 sentences of direct, specific executive insight on current hotel performance. Use actual numbers. Under 65 words. Speak to the owner, not a general audience.
 
-DoubleTree Augusta: MTD Rev $${(dt.mtd?.total_revenue||0).toLocaleString()} vs Budget $${(dt.mtd_budget?.total_revenue||0).toLocaleString()}, Occ ${((dt.mtd?.occupancy||0)*100).toFixed(1)}%, ADR $${(dt.mtd?.adr||0).toFixed(0)}
-Crowne Plaza N. Augusta: MTD Rev $${(cp.mtd?.total_revenue||0).toLocaleString()} vs Budget $${(cp.mtd_budget?.total_revenue||0).toLocaleString()}, Occ ${((cp.mtd?.occupancy||0)*100).toFixed(1)}%, ADR $${(cp.mtd?.adr||0).toFixed(0)}`;
-  try{ document.getElementById('insightText').textContent=await callClaude(prompt); }
-  catch{ document.getElementById('insightText').textContent='Upload reports to generate AI analysis.'; }
+DoubleTree Augusta — MTD Revenue: $${fmt(dt.mtd?.total_revenue)} vs Budget: $${fmt(dt.mtd_budget?.total_revenue)}, Occ: ${pct(dt.mtd?.occupancy)}, ADR: $${(dt.mtd?.adr||0).toFixed(0)}
+Crowne Plaza N. Augusta — MTD Revenue: $${fmt(cp.mtd?.total_revenue)} vs Budget: $${fmt(cp.mtd_budget?.total_revenue)}, Occ: ${pct(cp.mtd?.occupancy)}, ADR: $${(cp.mtd?.adr||0).toFixed(0)}`
+  }];
+  try{
+    document.getElementById('itxt').textContent = await callClaude(prompt, 200);
+  } catch(e){
+    document.getElementById('itxt').textContent = 'Could not generate summary — data loaded successfully above.';
+  }
 }
 
-function renderDashboard(){ document.getElementById('dashboard').style.display='block'; switchProp('dt'); }
-
-function switchProp(p){
-  S.active=p;
-  document.getElementById('tabDT').className='tab'+(p==='dt'?' adt':'');
-  document.getElementById('tabCP').className='tab'+(p==='cp'?' acp':'');
-  document.getElementById('tabBoth').className='tab'+(p==='both'?' aboth':'');
-  const d=p==='both'?combined():S.data[p];
-  if(!d){ document.getElementById('kpiGrid').innerHTML='<div style="grid-column:1/-1;color:var(--gray3);padding:20px;font-size:13px;">No data for this property — upload a report above.</div>'; return; }
-  renderKPIs(d,p); renderCharts(d,p); renderTable(d);
-}
-
-function combined(){
-  const a=S.data.dt||{},b=S.data.cp||{};
-  if(!S.data.dt&&!S.data.cp) return null;
-  const n=(S.data.dt?1:0)+(S.data.cp?1:0);
-  const s=(k,f)=>((a[k]||{})[f]||0)+((b[k]||{})[f]||0);
-  const avg=(k,f)=>(((a[k]||{})[f]||0)+((b[k]||{})[f]||0))/n;
+// ── EMPTY PROPERTY STRUCTURE ───────────────────────────────────
+function emptyProp(){
   return {
-    today:a.today||b.today||{},
-    mtd:{total_revenue:s('mtd','total_revenue'),rooms_revenue:s('mtd','rooms_revenue'),food_bev_revenue:s('mtd','food_bev_revenue'),ebitda:s('mtd','ebitda'),occupancy:avg('mtd','occupancy'),adr:avg('mtd','adr'),revpar:avg('mtd','revpar')},
-    mtd_budget:{total_revenue:s('mtd_budget','total_revenue'),rooms_revenue:s('mtd_budget','rooms_revenue'),ebitda:s('mtd_budget','ebitda'),occupancy:avg('mtd_budget','occupancy'),adr:avg('mtd_budget','adr')},
-    ytd:{total_revenue:s('ytd','total_revenue'),ebitda:s('ytd','ebitda')},
-    ytd_budget:{total_revenue:s('ytd_budget','total_revenue')},
-    today:a.today||b.today||{},
-    trend_labels:a.trend_labels||b.trend_labels||[],
-    trend_actual:(a.trend_actual||[]).map((v,i)=>v+((b.trend_actual||[])[i]||0)),
-    trend_budget:(a.trend_budget||[]).map((v,i)=>v+((b.trend_budget||[])[i]||0)),
-    occ_trend_actual:a.occ_trend_actual||b.occ_trend_actual||[],
-    occ_trend_budget:a.occ_trend_budget||b.occ_trend_budget||[],
+    today:      {occupancy:0,adr:0,revpar:0,rooms_sold:0,total_revenue:0},
+    mtd:        {occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+    mtd_budget: {occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+    ytd:        {occupancy:0,adr:0,total_revenue:0,ebitda:0},
+    ytd_budget: {occupancy:0,adr:0,total_revenue:0,ebitda:0},
+    trend_labels:[],trend_actual:[],trend_budget:[],occ_trend_actual:[],occ_trend_budget:[]
   };
 }
 
-function renderKPIs(d,p){
-  const cc=p==='cp'?'ccp':p==='both'?'cboth':'cdt';
-  const m=d.mtd||{},bm=d.mtd_budget||{},y=d.ytd||{},by=d.ytd_budget||{},t=d.today||{};
-  function dl(a,b,isPct){
-    if(!a||!b) return {text:'—',cls:'neu'};
-    const diff=a-b,sign=diff>=0?'+':'',cls=diff>=0?'pos':'neg';
-    return isPct?{text:sign+(diff*100).toFixed(1)+' bps vs bgt',cls}:{text:sign+fmt(diff)+' vs bgt',cls};
+// ── RENDER ─────────────────────────────────────────────────────
+function show(p){
+  active = p;
+  document.getElementById('tDT').className   = 'tab' + (p==='dt'   ? ' adt'   : '');
+  document.getElementById('tCP').className   = 'tab' + (p==='cp'   ? ' acp'   : '');
+  document.getElementById('tBoth').className = 'tab' + (p==='both' ? ' aboth' : '');
+  const d = p==='both' ? combined() : DATA[p];
+  if(!d){
+    document.getElementById('kgrid').innerHTML =
+      '<div style="grid-column:1/-1;color:var(--gray3);padding:20px;font-size:13px;">No data for this property — upload a report above.</div>';
+    return;
   }
-  const rv=dl(m.total_revenue,bm.total_revenue),oc=dl(m.occupancy,bm.occupancy,true),yt=dl(y.total_revenue,by.total_revenue);
-  const cards=[
-    {l:'Today Occ',v:t.occupancy?pct(t.occupancy):'—',d:t.rooms_sold?t.rooms_sold+' rooms':'',c:'neu',s:t.adr?'ADR $'+t.adr.toFixed(0):''},
-    {l:'MTD Occupancy',v:m.occupancy?pct(m.occupancy):'—',d:oc.text,c:oc.cls,s:m.adr?'ADR $'+m.adr.toFixed(2):''},
-    {l:'MTD Revenue',v:m.total_revenue?fmt(m.total_revenue):'—',d:rv.text,c:rv.cls,s:bm.total_revenue?'Budget '+fmt(bm.total_revenue):''},
-    {l:'MTD RevPAR',v:m.revpar?'$'+m.revpar.toFixed(2):(m.occupancy&&m.adr?'$'+(m.occupancy*m.adr).toFixed(2):'—'),d:'',c:'neu',s:''},
-    {l:'YTD Revenue',v:y.total_revenue?fmt(y.total_revenue):'—',d:yt.text,c:yt.cls,s:by.total_revenue?'Budget '+fmt(by.total_revenue):''},
-    {l:'MTD EBITDA',v:m.ebitda?fmt(m.ebitda):'—',d:bm.ebitda?dl(m.ebitda,bm.ebitda).text:'',c:bm.ebitda?dl(m.ebitda,bm.ebitda).cls:'neu',s:''},
-  ];
-  document.getElementById('kpiGrid').innerHTML=cards.map(c=>`<div class="kcard ${cc}"><div class="klbl">${c.l}</div><div class="kval">${c.v}</div>${c.d?`<div class="kdelta ${c.c}">${c.d}</div>`:''} ${c.s?`<div class="ksub">${c.s}</div>`:''}</div>`).join('');
+  renderKPIs(d, p);
+  renderCharts(d, p);
+  renderTable(d);
 }
 
-function renderCharts(d,p){
-  const C=p==='cp'?{m:'#7B2D8B',b:'#D4A8DE'}:p==='both'?{m:'#1A2744',b:'#8899BB'}:{m:'#0077B6',b:'#99CCE8'};
-  const labels=d.trend_labels?.length?d.trend_labels:['No data'];
-  const act=d.trend_actual?.length?d.trend_actual:[0];
-  const bgt=d.trend_budget?.length?d.trend_budget:[0];
-  const oA=d.occ_trend_actual?.length?d.occ_trend_actual.map(v=>v*100):[0];
-  const oB=d.occ_trend_budget?.length?d.occ_trend_budget.map(v=>v*100):[0];
-  if(RC) RC.destroy(); if(OC) OC.destroy();
-  const base={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{family:'DM Mono',size:11},color:'#1A2744'}}},scales:{x:{grid:{color:'#F2EFE9'},ticks:{font:{family:'DM Mono',size:10},color:'#9A9488'}},y:{grid:{color:'#F2EFE9'},ticks:{font:{family:'DM Mono',size:10},color:'#9A9488'}}}};
-  RC=new Chart(document.getElementById('revChart'),{type:'bar',data:{labels,datasets:[{label:'Actual',data:act,backgroundColor:C.m+'CC',borderRadius:4},{label:'Budget',data:bgt,backgroundColor:C.b,borderRadius:4}]},options:{...base,scales:{...base.scales,y:{...base.scales.y,ticks:{...base.scales.y.ticks,callback:v=>'$'+(v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
-  OC=new Chart(document.getElementById('occChart'),{type:'line',data:{labels,datasets:[{label:'Actual %',data:oA,borderColor:C.m,backgroundColor:C.m+'18',tension:.3,fill:true,pointRadius:3},{label:'Budget %',data:oB,borderColor:C.b,borderDash:[5,4],tension:.3,fill:false,pointRadius:0}]},options:{...base,scales:{...base.scales,y:{...base.scales.y,ticks:{...base.scales.y.ticks,callback:v=>v.toFixed(0)+'%'}}}}});
+function combined(){
+  const a = DATA.dt || {}, b = DATA.cp || {};
+  if(!DATA.dt && !DATA.cp) return null;
+  const n = (DATA.dt?1:0) + (DATA.cp?1:0);
+  const s = (k,f) => ((a[k]||{})[f]||0) + ((b[k]||{})[f]||0);
+  const v = (k,f) => (((a[k]||{})[f]||0) + ((b[k]||{})[f]||0)) / n;
+  return {
+    today:      a.today || b.today || {},
+    mtd:        {total_revenue:s('mtd','total_revenue'),rooms_revenue:s('mtd','rooms_revenue'),food_bev_revenue:s('mtd','food_bev_revenue'),ebitda:s('mtd','ebitda'),occupancy:v('mtd','occupancy'),adr:v('mtd','adr'),revpar:v('mtd','revpar')},
+    mtd_budget: {total_revenue:s('mtd_budget','total_revenue'),rooms_revenue:s('mtd_budget','rooms_revenue'),ebitda:s('mtd_budget','ebitda'),occupancy:v('mtd_budget','occupancy'),adr:v('mtd_budget','adr')},
+    ytd:        {total_revenue:s('ytd','total_revenue'),ebitda:s('ytd','ebitda')},
+    ytd_budget: {total_revenue:s('ytd_budget','total_revenue')},
+    trend_labels:     a.trend_labels      || b.trend_labels      || [],
+    trend_actual:     (a.trend_actual     ||[]).map((v,i)=>v+((b.trend_actual     ||[])[i]||0)),
+    trend_budget:     (a.trend_budget     ||[]).map((v,i)=>v+((b.trend_budget     ||[])[i]||0)),
+    occ_trend_actual: a.occ_trend_actual  || b.occ_trend_actual  || [],
+    occ_trend_budget: a.occ_trend_budget  || b.occ_trend_budget  || [],
+  };
+}
+
+function renderKPIs(d, p){
+  const cc = p==='cp' ? 'ccp' : p==='both' ? 'cboth' : 'cdt';
+  const m=d.mtd||{}, bm=d.mtd_budget||{}, y=d.ytd||{}, by=d.ytd_budget||{}, t=d.today||{};
+  function dl(a,b,pct){
+    if(!a||!b) return {text:'— vs budget',cls:'neu'};
+    const diff=a-b, sign=diff>=0?'+':'', cls=diff>=0?'pos':'neg';
+    return pct ? {text:sign+(diff*100).toFixed(1)+' bps vs bgt',cls} : {text:sign+fmt(diff)+' vs bgt',cls};
+  }
+  const rv=dl(m.total_revenue,bm.total_revenue), oc=dl(m.occupancy,bm.occupancy,true), yt=dl(y.total_revenue,by.total_revenue);
+  const cards = [
+    {l:'Today Occ',    v:t.occupancy?pct(t.occupancy):'—',   d:t.rooms_sold?t.rooms_sold+' rooms':'', c:'neu', s:t.adr?'ADR $'+t.adr.toFixed(0):''},
+    {l:'MTD Occupancy',v:m.occupancy?pct(m.occupancy):'—',   d:oc.text, c:oc.cls, s:m.adr?'ADR $'+m.adr.toFixed(2):''},
+    {l:'MTD Revenue',  v:m.total_revenue?fmt(m.total_revenue):'—', d:rv.text, c:rv.cls, s:bm.total_revenue?'Budget '+fmt(bm.total_revenue):''},
+    {l:'MTD RevPAR',   v:m.revpar?'$'+m.revpar.toFixed(2):(m.occupancy&&m.adr?'$'+(m.occupancy*m.adr).toFixed(2):'—'), d:'',c:'neu',s:''},
+    {l:'YTD Revenue',  v:y.total_revenue?fmt(y.total_revenue):'—', d:yt.text, c:yt.cls, s:by.total_revenue?'Budget '+fmt(by.total_revenue):''},
+    {l:'MTD EBITDA',   v:m.ebitda?fmt(m.ebitda):'—', d:bm.ebitda?dl(m.ebitda,bm.ebitda).text:'', c:bm.ebitda?dl(m.ebitda,bm.ebitda).cls:'neu', s:''},
+  ];
+  document.getElementById('kgrid').innerHTML = cards.map(c =>
+    `<div class="kcard ${cc}">
+      <div class="klbl">${c.l}</div>
+      <div class="kval">${c.v}</div>
+      ${c.d ? `<div class="kdelta ${c.c}">${c.d}</div>` : ''}
+      ${c.s ? `<div class="ksub">${c.s}</div>` : ''}
+    </div>`
+  ).join('');
+}
+
+function renderCharts(d, p){
+  const C = p==='cp' ? {m:'#7B2D8B',b:'#D4A8DE'} : p==='both' ? {m:'#1A2744',b:'#8899BB'} : {m:'#0077B6',b:'#99CCE8'};
+  const labels = d.trend_labels?.length ? d.trend_labels : ['No trend data'];
+  const act    = d.trend_actual?.length ? d.trend_actual : [0];
+  const bgt    = d.trend_budget?.length ? d.trend_budget : [0];
+  const oA     = d.occ_trend_actual?.length ? d.occ_trend_actual.map(v=>v*100) : [0];
+  const oB     = d.occ_trend_budget?.length ? d.occ_trend_budget.map(v=>v*100) : [0];
+  if(RC) RC.destroy();
+  if(OC) OC.destroy();
+  const base = {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{legend:{labels:{font:{family:'DM Mono',size:11},color:'#1A2744'}}},
+    scales:{
+      x:{grid:{color:'#F2EFE9'},ticks:{font:{family:'DM Mono',size:10},color:'#9A9488'}},
+      y:{grid:{color:'#F2EFE9'},ticks:{font:{family:'DM Mono',size:10},color:'#9A9488'}}
+    }
+  };
+  RC = new Chart(document.getElementById('rchart'),{
+    type:'bar',
+    data:{labels, datasets:[
+      {label:'Actual',  data:act, backgroundColor:C.m+'CC', borderRadius:4},
+      {label:'Budget',  data:bgt, backgroundColor:C.b,      borderRadius:4}
+    ]},
+    options:{...base, scales:{...base.scales, y:{...base.scales.y, ticks:{...base.scales.y.ticks, callback:v=>'$'+(v>=1000?(v/1000).toFixed(0)+'K':v)}}}}
+  });
+  OC = new Chart(document.getElementById('ochart'),{
+    type:'line',
+    data:{labels, datasets:[
+      {label:'Actual %', data:oA, borderColor:C.m, backgroundColor:C.m+'18', tension:.3, fill:true,  pointRadius:3},
+      {label:'Budget %', data:oB, borderColor:C.b, borderDash:[5,4],          tension:.3, fill:false, pointRadius:0}
+    ]},
+    options:{...base, scales:{...base.scales, y:{...base.scales.y, ticks:{...base.scales.y.ticks, callback:v=>v.toFixed(0)+'%'}}}}
+  });
 }
 
 function renderTable(d){
-  const m=d.mtd||{},bm=d.mtd_budget||{},y=d.ytd||{},by=d.ytd_budget||{},t=d.today||{};
-  function row(label,tv,mA,mB,yA,yB,isPct){
-    const va=mA&&mB?mA-mB:null,vp=mA&&mB?(mA-mB)/mB:null;
-    const cls=va===null?'':va>=0?'pos':'neg',sign=va!==null&&va>=0?'+':'';
-    return `<tr><td class="mn">${label}</td><td>${tv||'—'}</td><td>${mA?(isPct?pct(mA):fmt(mA)):'—'}</td><td>${mB?(isPct?pct(mB):fmt(mB)):'—'}</td><td class="${cls}">${va!==null?sign+(isPct?(va*100).toFixed(1)+'bps':fmt(va)):'—'}</td><td class="${cls}">${vp!==null?sign+(vp*100).toFixed(1)+'%':'—'}</td><td>${yA?(isPct?pct(yA):fmt(yA)):'—'}</td><td>${yB?(isPct?pct(yB):fmt(yB)):'—'}</td></tr>`;
+  const m=d.mtd||{}, bm=d.mtd_budget||{}, y=d.ytd||{}, by=d.ytd_budget||{}, t=d.today||{};
+  function row(label, todayV, mA, mB, yA, yB, isPct){
+    const va  = (mA&&mB) ? mA-mB : null;
+    const vp  = (mA&&mB) ? (mA-mB)/mB : null;
+    const cls = va===null ? '' : va>=0 ? 'pos' : 'neg';
+    const sgn = (va!==null && va>=0) ? '+' : '';
+    return `<tr>
+      <td class="mn">${label}</td>
+      <td>${todayV||'—'}</td>
+      <td>${mA?(isPct?pct(mA):fmt(mA)):'—'}</td>
+      <td>${mB?(isPct?pct(mB):fmt(mB)):'—'}</td>
+      <td class="${cls}">${va!==null ? sgn+(isPct?(va*100).toFixed(1)+'bps':fmt(va)) : '—'}</td>
+      <td class="${cls}">${vp!==null ? sgn+(vp*100).toFixed(1)+'%' : '—'}</td>
+      <td>${yA?(isPct?pct(yA):fmt(yA)):'—'}</td>
+      <td>${yB?(isPct?pct(yB):fmt(yB)):'—'}</td>
+    </tr>`;
   }
-  const sec=l=>`<tr class="sr"><td colspan="8">${l}</td></tr>`;
-  document.getElementById('tblBody').innerHTML=[
+  const sec = l => `<tr class="sr"><td colspan="8">${l}</td></tr>`;
+  document.getElementById('tbody').innerHTML = [
     sec('OCCUPANCY & RATE'),
-    row('Occupancy',t.occupancy?pct(t.occupancy):'—',m.occupancy,bm.occupancy,null,null,true),
-    row('ADR',t.adr?'$'+t.adr.toFixed(2):'—',m.adr,bm.adr,null,null,false),
-    row('RevPAR',t.revpar?'$'+t.revpar.toFixed(2):'—',m.revpar||(m.occupancy*m.adr)||0,bm.revpar||(bm.occupancy*bm.adr)||0,null,null,false),
+    row('Occupancy',    t.occupancy?pct(t.occupancy):'—', m.occupancy,    bm.occupancy,    null,             null,            true),
+    row('ADR',          t.adr?'$'+t.adr.toFixed(2):'—',  m.adr,          bm.adr,          null,             null,            false),
+    row('RevPAR',       t.revpar?'$'+t.revpar.toFixed(2):'—', m.revpar||(m.occupancy*m.adr)||0, bm.revpar||(bm.occupancy*bm.adr)||0, null, null, false),
     sec('REVENUE'),
-    row('Rooms Revenue','—',m.rooms_revenue,bm.rooms_revenue,y.rooms_revenue,by.rooms_revenue),
-    row('F&B Revenue','—',m.food_bev_revenue,bm.food_bev_revenue,null,null),
-    row('Total Revenue',t.total_revenue?fmt(t.total_revenue):'—',m.total_revenue,bm.total_revenue,y.total_revenue,by.total_revenue),
+    row('Rooms Revenue','—', m.rooms_revenue,    bm.rooms_revenue,    y.rooms_revenue,    null,            false),
+    row('F&B Revenue',  '—', m.food_bev_revenue, bm.food_bev_revenue, null,               null,            false),
+    row('Total Revenue',t.total_revenue?fmt(t.total_revenue):'—', m.total_revenue, bm.total_revenue, y.total_revenue, by.total_revenue, false),
     sec('PROFITABILITY'),
-    row('EBITDA','—',m.ebitda,bm.ebitda,y.ebitda,by.ebitda),
+    row('EBITDA',       '—', m.ebitda, bm.ebitda, y.ebitda, by.ebitda, false),
   ].join('');
 }
 
-function fmt(v){if(!v&&v!==0)return'—';const a=Math.abs(v),s=v<0?'-':'';return a>=1000000?s+'$'+(a/1000000).toFixed(2)+'MM':a>=1000?s+'$'+Math.round(a).toLocaleString():s+'$'+a.toFixed(2);}
-function pct(v){return v?(v*100).toFixed(1)+'%':'—';}
+// ── HELPERS ────────────────────────────────────────────────────
+function fmt(v){
+  if(!v && v!==0) return '—';
+  const a=Math.abs(v), s=v<0?'-':'';
+  if(a>=1000000) return s+'$'+(a/1000000).toFixed(2)+'MM';
+  if(a>=1000)    return s+'$'+Math.round(a).toLocaleString();
+  return s+'$'+a.toFixed(2);
+}
+function pct(v){ return v ? (v*100).toFixed(1)+'%' : '—'; }
 </script>
 </body>
 </html>
