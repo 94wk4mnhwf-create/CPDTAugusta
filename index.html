@@ -299,10 +299,11 @@ function handleFile(type, input){
 }
 
 async function readFile(file){
+  // Text / CSV — read directly
   if(file.type.includes('text')||file.name.endsWith('.csv')||file.name.endsWith('.txt')){
     return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=rej;r.readAsText(file);});
   }
-  // PDF — try loading PDF.js lazily
+  // PDF — first try PDF.js text extraction (works for text-based PDFs)
   if(window.pdfjsLib){
     try {
       const buf=await file.arrayBuffer();
@@ -313,10 +314,21 @@ async function readFile(file){
         const c=await pg.getTextContent();
         txt+=c.items.map(x=>x.str).join(' ')+'\n';
       }
-      return txt;
-    } catch(e){ console.warn('PDF.js extraction failed',e); }
+      // If we got meaningful text, use it
+      if(txt.replace(/\s/g,'').length > 100) return txt;
+    } catch(e){ console.warn('PDF.js text extraction failed, trying base64',e); }
   }
-  return '[PDF: '+file.name+' ('+Math.round(file.size/1024)+'KB) — extract data from this hotel revenue report]';
+  // Fallback: read as base64 and send to Claude vision API
+  return new Promise((res,rej)=>{
+    const r=new FileReader();
+    r.onload=e=>{
+      // Store as base64 object for vision API
+      const b64=e.target.result.split(',')[1];
+      res({type:'pdf_base64', name:file.name, data:b64, mediaType:'application/pdf'});
+    };
+    r.onerror=rej;
+    r.readAsDataURL(file);
+  });
 }
 
 function loadPdfJs(){
@@ -334,9 +346,12 @@ function loadPdfJs(){
 }
 
 async function readAll(files){
-  let out='';
-  for(const f of Array.from(files)) out+=await readFile(f)+'\n\n---\n\n';
-  return out;
+  const results=[];
+  for(const f of Array.from(files)){
+    const r=await readFile(f);
+    results.push(r);
+  }
+  return results;
 }
 
 async function processFiles(){
@@ -401,11 +416,23 @@ function emptyProp(){
   };
 }
 
-async function parseData(texts){
-  const prompt=`Analyze these hotel revenue reports for Augusta Hotel Properties and return ONLY valid JSON — no markdown, no explanation.
+// Build message content handling both text and base64 PDFs
+function buildContent(fileResults, label) {
+  if(!fileResults) return '';
+  const parts=[];
+  let hasBase64=false;
+  for(const r of fileResults){
+    if(r && typeof r === 'object' && r.type==='pdf_base64'){
+      hasBase64=true;
+    }
+  }
+  return {texts: fileResults.filter(r=>typeof r==='string').join('\n\n---\n\n'),
+          pdfs: fileResults.filter(r=>r && typeof r==='object' && r.type==='pdf_base64'),
+          hasBase64};
+}
 
-JSON structure (use 0 for missing values):
-{
+async function parseData(texts){
+  const jsonSchema=`{
   "dt": {
     "today":{"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_sold":0,"total_revenue":0},
     "mtd":{"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0},
@@ -416,14 +443,43 @@ JSON structure (use 0 for missing values):
   },
   "cp": { same structure as dt },
   "hasBudget": false
-}
+}`;
 
-dt = DoubleTree by Hilton Augusta. cp = Crowne Plaza North Augusta.
-Extract daily trends (up to 31 values) if available.
+  const instruction=`Analyze these hotel revenue reports for Augusta Hotel Properties. Return ONLY valid JSON, no markdown, no explanation.
+dt = DoubleTree by Hilton Augusta. cp = Crowne Plaza North Augusta. Use 0 for missing values. Extract daily trends up to 31 values if available.
+JSON structure: ${jsonSchema}`;
 
-${texts.budget?'BUDGET:\n'+texts.budget.slice(0,4000)+'\n\n':''}${texts.dt?'DOUBLETREE:\n'+texts.dt.slice(0,4000)+'\n\n':''}${texts.cp?'CROWNE PLAZA:\n'+texts.cp.slice(0,4000)+'\n\n':''}`;
+  // Build message content array for vision API (handles image-based PDFs)
+  const msgContent=[];
+  msgContent.push({type:'text',text:instruction});
 
-  const raw=await callClaude(prompt);
+  // Add any base64 PDFs as document blocks
+  for(const key of ['budget','dt','cp']){
+    if(!texts[key]) continue;
+    const label=key==='budget'?'BUDGET':key==='dt'?'DOUBLETREE':'CROWNE PLAZA';
+    for(const r of texts[key]){
+      if(typeof r==='string' && r.length>0){
+        msgContent.push({type:'text',text:`\n${label} TEXT DATA:\n${r.slice(0,4000)}`});
+      } else if(r && r.type==='pdf_base64'){
+        msgContent.push({type:'text',text:`\n${label} PDF FILE (${r.name}):`});
+        msgContent.push({type:'document',source:{type:'base64',media_type:'application/pdf',data:r.data}});
+      }
+    }
+  }
+
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':API_KEY,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access':'true'
+    },
+    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content:msgContent}]})
+  });
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||'API error '+res.status);}
+  const d=await res.json();
+  const raw=d.content[0].text;
   const clean=raw.replace(/```json|```/g,'').trim();
   const m=clean.match(/\{[\s\S]*\}/);
   try{ return JSON.parse(m?m[0]:clean); }
