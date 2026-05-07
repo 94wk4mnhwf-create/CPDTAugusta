@@ -153,6 +153,9 @@
       <label for="remKey">Remember on this device</label>
     </div>
     <button class="gbtn" onclick="unlock()">Open Dashboard →</button>
+    <div style="margin-top:12px;font-size:11px;color:var(--gray3);">
+      <a href="#" onclick="try{localStorage.removeItem('ahp_k')}catch(e){}; document.getElementById('keyInput').value=''; return false;" style="color:var(--gray3);">Clear saved key</a>
+    </div>
     <div class="gerr" id="gerr">Please enter your Anthropic API key</div>
   </div>
 </div>
@@ -275,11 +278,16 @@ document.getElementById('hdate').textContent =
 (function(){
   try {
     const k = localStorage.getItem('ahp_k');
-    if(k && k.length > 10){
+    if(k && k.length > 20){
       KEY = k;
       document.getElementById('keyInput').value = k;
       document.getElementById('remKey').checked = true;
       document.getElementById('gate').style.display = 'none';
+      console.log('Auto-loaded key from storage, length:', k.length);
+    } else if(k) {
+      // Stale/invalid key — clear it and force re-entry
+      localStorage.removeItem('ahp_k');
+      console.log('Cleared stale key from storage');
     }
   } catch(e){}
 })();
@@ -288,8 +296,11 @@ function unlock(){
   const k = document.getElementById('keyInput').value.trim();
   if(!k || k.length < 10){ document.getElementById('gerr').style.display='block'; return; }
   KEY = k;
+  console.log('Key set, length:', k.length, 'prefix:', k.slice(0,8));
   if(document.getElementById('remKey').checked){
     try{ localStorage.setItem('ahp_k', k); }catch(e){}
+  } else {
+    try{ localStorage.removeItem('ahp_k'); }catch(e){}
   }
   document.getElementById('gate').style.display = 'none';
 }
@@ -420,6 +431,7 @@ function setP(t, s){
 
 // ── CLAUDE API ─────────────────────────────────────────────────
 async function callClaude(msgContent, maxTokens){
+  console.log('Calling Claude, key length:', KEY.length, 'prefix:', KEY.slice(0,8));
   const res = await fetch('https://api.anthropic.com/v1/messages', {
     method: 'POST',
     headers: {
