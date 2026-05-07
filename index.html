@@ -4,218 +4,160 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Augusta Hotel Properties — Revenue Dashboard</title>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --navy:#1A2744; --navy2:#243259; --gold:#C9A84C; --gold2:#E8C96B;
-    --cream:#F8F5EF; --white:#FFFFFF; --gray1:#F2EFE9; --gray2:#D8D3C8;
-    --gray3:#9A9488; --green:#2D7A4F; --red:#B83232;
-    --dt:#0077B6; --cp:#7B2D8B;
-    --shadow:0 4px 24px rgba(26,39,68,.10); --shadow2:0 8px 40px rgba(26,39,68,.16);
+    --navy:#1A2744;--navy2:#243259;--gold:#C9A84C;--cream:#F8F5EF;
+    --white:#FFFFFF;--gray1:#F2EFE9;--gray2:#D8D3C8;--gray3:#9A9488;
+    --green:#2D7A4F;--red:#B83232;--dt:#0077B6;--cp:#7B2D8B;
+    --shadow:0 4px 24px rgba(26,39,68,.10);--shadow2:0 8px 40px rgba(26,39,68,.16);
   }
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
   body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--navy);min-height:100vh;}
 
-  /* ── API KEY GATE ── */
-  #apiGate {
-    position:fixed;inset:0;background:var(--navy);z-index:1000;
-    display:flex;align-items:center;justify-content:center;
-  }
-  .gate-box {
-    background:var(--white);border-radius:16px;padding:44px 48px;
-    width:100%;max-width:480px;box-shadow:0 24px 80px rgba(0,0,0,.35);
-    text-align:center;
-  }
-  .gate-logo {
-    font-family:'Playfair Display',serif;font-size:22px;font-weight:700;
-    color:var(--navy);margin-bottom:6px;
-  }
+  /* GATE */
+  #gate{position:fixed;inset:0;background:var(--navy);z-index:1000;display:flex;align-items:center;justify-content:center;}
+  .gate-box{background:var(--white);border-radius:16px;padding:44px 48px;width:100%;max-width:460px;box-shadow:0 24px 80px rgba(0,0,0,.35);text-align:center;}
+  .gate-logo{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);margin-bottom:6px;}
   .gate-logo span{color:var(--gold);}
-  .gate-sub{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:32px;letter-spacing:.04em;}
-  .gate-label{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.08em;text-align:left;margin-bottom:8px;font-family:'DM Mono',monospace;}
-  .gate-input{
-    width:100%;border:1.5px solid var(--gray2);border-radius:8px;
-    padding:12px 14px;font-family:'DM Mono',monospace;font-size:13px;
-    color:var(--navy);outline:none;transition:border-color .2s;
-    margin-bottom:10px;
-  }
+  .gate-sub{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:28px;letter-spacing:.04em;}
+  .gate-lbl{font-size:11px;font-weight:700;color:var(--navy);text-transform:uppercase;letter-spacing:.08em;text-align:left;margin-bottom:8px;font-family:'DM Mono',monospace;}
+  .gate-input{width:100%;border:1.5px solid var(--gray2);border-radius:8px;padding:12px 14px;font-family:'DM Mono',monospace;font-size:13px;color:var(--navy);outline:none;transition:border-color .2s;margin-bottom:8px;}
   .gate-input:focus{border-color:var(--gold);}
-  .gate-hint{font-size:11px;color:var(--gray3);text-align:left;margin-bottom:20px;line-height:1.5;}
+  .gate-hint{font-size:11px;color:var(--gray3);text-align:left;margin-bottom:16px;line-height:1.6;}
   .gate-hint a{color:var(--gold);text-decoration:none;}
-  .gate-hint a:hover{text-decoration:underline;}
-  .gate-btn{
-    width:100%;background:var(--navy);color:var(--white);border:none;
-    border-radius:8px;padding:13px;font-family:'DM Sans',sans-serif;
-    font-size:14px;font-weight:700;cursor:pointer;letter-spacing:.03em;
-    transition:background .2s;
-  }
-  .gate-btn:hover{background:var(--navy2);}
-  .gate-error{color:var(--red);font-size:12px;margin-top:10px;display:none;font-family:'DM Mono',monospace;}
   .gate-remember{display:flex;align-items:center;gap:8px;margin-bottom:18px;text-align:left;}
-  .gate-remember input{accent-color:var(--gold);width:14px;height:14px;cursor:pointer;}
+  .gate-remember input{accent-color:var(--gold);cursor:pointer;}
   .gate-remember label{font-size:12px;color:var(--gray3);cursor:pointer;}
+  .gate-btn{width:100%;background:var(--navy);color:var(--white);border:none;border-radius:8px;padding:13px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .2s;}
+  .gate-btn:hover{background:var(--navy2);}
+  .gate-err{color:var(--red);font-size:12px;margin-top:10px;display:none;font-family:'DM Mono',monospace;}
 
-  /* ── HEADER ── */
-  header{
-    background:var(--navy);padding:0 40px;display:flex;
-    align-items:center;justify-content:space-between;height:64px;
-    position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.18);
-  }
-  .logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);letter-spacing:.02em;}
+  /* HEADER */
+  header{background:var(--navy);padding:0 40px;display:flex;align-items:center;justify-content:space-between;height:64px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.18);}
+  .logo{font-family:'Playfair Display',serif;font-size:18px;font-weight:700;color:var(--white);}
   .logo span{color:var(--gold);}
-  .header-right{display:flex;align-items:center;gap:20px;}
-  .header-date{font-family:'DM Mono',monospace;font-size:12px;color:var(--gray2);letter-spacing:.08em;}
-  .key-indicator{
-    font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);
-    border:1px solid rgba(201,168,76,.4);border-radius:4px;padding:3px 8px;
-    cursor:pointer;letter-spacing:.06em;
-    transition:background .2s;
-  }
-  .key-indicator:hover{background:rgba(201,168,76,.1);}
+  .hdr-right{display:flex;align-items:center;gap:16px;}
+  .hdr-date{font-family:'DM Mono',monospace;font-size:12px;color:var(--gray2);}
+  .key-btn{font-family:'DM Mono',monospace;font-size:10px;color:var(--gold);border:1px solid rgba(201,168,76,.4);border-radius:4px;padding:3px 8px;cursor:pointer;background:transparent;letter-spacing:.06em;}
 
-  /* ── MAIN ── */
+  /* LAYOUT */
   main{max-width:1280px;margin:0 auto;padding:32px 32px 64px;}
   .page-title{margin-bottom:28px;border-left:3px solid var(--gold);padding-left:16px;}
-  .page-title h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;color:var(--navy);line-height:1.2;}
-  .page-title p{font-size:13px;color:var(--gray3);margin-top:4px;font-family:'DM Mono',monospace;letter-spacing:.04em;}
+  .page-title h1{font-family:'Playfair Display',serif;font-size:26px;font-weight:700;}
+  .page-title p{font-size:13px;color:var(--gray3);margin-top:4px;font-family:'DM Mono',monospace;}
 
-  /* ── UPLOAD ── */
+  /* UPLOAD */
   .upload-section{background:var(--white);border-radius:12px;border:1px solid var(--gray2);padding:28px 32px;margin-bottom:28px;box-shadow:var(--shadow);}
-  .upload-section h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;color:var(--navy);margin-bottom:18px;display:flex;align-items:center;gap:10px;}
-  .upload-section h2::before{content:'';display:block;width:3px;height:18px;background:var(--gold);border-radius:2px;}
+  .upload-section h2{font-family:'Playfair Display',serif;font-size:16px;font-weight:600;margin-bottom:6px;}
+  .upload-note{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:18px;}
   .upload-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  .upload-card{border:1.5px dashed var(--gray2);border-radius:10px;padding:20px 16px;text-align:center;cursor:pointer;transition:all .2s;background:var(--gray1);position:relative;}
-  .upload-card:hover{border-color:var(--gold);background:#FBF8F2;}
-  .upload-card.has-file{border-style:solid;border-color:var(--green);background:#F0F8F4;}
-  .upload-card.budget-card.has-file{border-color:var(--gold);background:#FBF8EE;}
-  .upload-card input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
-  .upload-icon{font-size:24px;margin-bottom:8px;}
-  .upload-label{font-size:12px;font-weight:600;color:var(--navy);letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px;}
-  .upload-sub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;}
-  .upload-filename{font-size:11px;color:var(--green);margin-top:6px;font-family:'DM Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
-  .upload-card.budget-card .upload-filename{color:var(--gold);}
+  .ucard{border:1.5px dashed var(--gray2);border-radius:10px;padding:20px 16px;text-align:center;cursor:pointer;transition:all .2s;background:var(--gray1);position:relative;}
+  .ucard:hover{border-color:var(--gold);background:#FBF8F2;}
+  .ucard.has-file{border-style:solid;border-color:var(--green);background:#F0F8F4;}
+  .ucard.budget.has-file{border-color:var(--gold);background:#FBF8EE;}
+  .ucard input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%;}
+  .uicon{font-size:24px;margin-bottom:8px;}
+  .ulbl{font-size:12px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:4px;}
+  .usub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;}
+  .ufname{font-size:11px;color:var(--green);margin-top:6px;font-family:'DM Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:none;}
+  .budget .ufname{color:#b8860b;}
+  .analyze-btn{margin-top:18px;background:var(--navy);color:var(--white);border:none;border-radius:8px;padding:12px 28px;font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;display:inline-flex;align-items:center;gap:8px;}
+  .analyze-btn:hover{background:var(--navy2);}
+  .analyze-btn:disabled{opacity:.5;cursor:not-allowed;}
+  #upStatus{font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;margin-left:14px;}
 
-  .process-btn{
-    margin-top:18px;background:var(--navy);color:var(--white);border:none;
-    border-radius:8px;padding:12px 28px;font-family:'DM Sans',sans-serif;
-    font-size:14px;font-weight:600;cursor:pointer;letter-spacing:.03em;
-    transition:background .2s,transform .1s;display:flex;align-items:center;gap:8px;
-  }
-  .process-btn:hover{background:var(--navy2);}
-  .process-btn:active{transform:scale(.98);}
-  .process-btn:disabled{opacity:.5;cursor:not-allowed;}
+  /* PROCESSING */
+  .proc-bar{display:none;background:var(--white);border-radius:10px;padding:20px 24px;margin-bottom:20px;box-shadow:var(--shadow);border-left:4px solid var(--gold);align-items:center;gap:16px;}
+  .proc-bar.on{display:flex;}
+  .spinner{width:20px;height:20px;border:2.5px solid var(--gray2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
+  @keyframes spin{to{transform:rotate(360deg);}}
+  .proc-txt{font-size:13px;font-weight:500;}
+  .proc-sub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-top:2px;}
 
-  /* ── TABS ── */
+  /* TABS */
   .tabs{display:flex;gap:4px;margin-bottom:20px;background:var(--white);padding:6px;border-radius:10px;border:1px solid var(--gray2);width:fit-content;box-shadow:var(--shadow);}
-  .tab{padding:8px 22px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--gray3);border:none;background:transparent;letter-spacing:.02em;}
-  .tab.active-dt{background:var(--dt);color:white;}
-  .tab.active-cp{background:var(--cp);color:white;}
-  .tab.active-both{background:var(--navy);color:white;}
-  .tab:not(.active-dt):not(.active-cp):not(.active-both):hover{background:var(--gray1);color:var(--navy);}
+  .tab{padding:8px 22px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:all .2s;color:var(--gray3);border:none;background:transparent;}
+  .tab.adt{background:var(--dt);color:white;}
+  .tab.acp{background:var(--cp);color:white;}
+  .tab.aboth{background:var(--navy);color:white;}
 
-  /* ── KPI CARDS ── */
+  /* KPI CARDS */
   .kpi-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:24px;}
-  .kpi-card{background:var(--white);border-radius:10px;padding:18px 16px;box-shadow:var(--shadow);border-top:3px solid transparent;transition:box-shadow .2s;}
-  .kpi-card:hover{box-shadow:var(--shadow2);}
-  .kpi-card.dt-card{border-top-color:var(--dt);}
-  .kpi-card.cp-card{border-top-color:var(--cp);}
-  .kpi-card.both-card{border-top-color:var(--navy);}
-  .kpi-label{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray3);margin-bottom:8px;font-family:'DM Mono',monospace;}
-  .kpi-value{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;color:var(--navy);line-height:1;margin-bottom:6px;}
-  .kpi-delta{font-size:11px;font-family:'DM Mono',monospace;font-weight:500;}
-  .kpi-delta.pos{color:var(--green);}
-  .kpi-delta.neg{color:var(--red);}
-  .kpi-delta.neu{color:var(--gray3);}
-  .kpi-sub{font-size:10px;color:var(--gray3);margin-top:2px;font-family:'DM Mono',monospace;}
+  .kcard{background:var(--white);border-radius:10px;padding:18px 16px;box-shadow:var(--shadow);border-top:3px solid var(--gray2);}
+  .kcard.cdt{border-top-color:var(--dt);} .kcard.ccp{border-top-color:var(--cp);} .kcard.cboth{border-top-color:var(--navy);}
+  .klbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--gray3);margin-bottom:8px;font-family:'DM Mono',monospace;}
+  .kval{font-family:'Playfair Display',serif;font-size:22px;font-weight:700;line-height:1;margin-bottom:6px;}
+  .kdelta{font-size:11px;font-family:'DM Mono',monospace;}
+  .pos{color:var(--green);} .neg{color:var(--red);} .neu{color:var(--gray3);}
+  .ksub{font-size:10px;color:var(--gray3);margin-top:2px;font-family:'DM Mono',monospace;}
 
-  /* ── CHARTS ── */
+  /* CHARTS */
   .charts-grid{display:grid;grid-template-columns:2fr 1fr;gap:18px;margin-bottom:24px;}
   .chart-card{background:var(--white);border-radius:12px;padding:24px;box-shadow:var(--shadow);}
-  .chart-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px;}
+  .chart-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:4px;}
   .chart-sub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:16px;}
   .chart-wrap{position:relative;height:220px;}
 
-  /* ── TABLE ── */
-  .table-card{background:var(--white);border-radius:12px;padding:24px;box-shadow:var(--shadow);margin-bottom:24px;overflow-x:auto;}
-  .table-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;color:var(--navy);margin-bottom:4px;}
-  .table-sub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:16px;}
+  /* TABLE */
+  .tbl-card{background:var(--white);border-radius:12px;padding:24px;box-shadow:var(--shadow);margin-bottom:24px;overflow-x:auto;}
+  .tbl-title{font-family:'Playfair Display',serif;font-size:15px;font-weight:600;margin-bottom:4px;}
+  .tbl-sub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-bottom:16px;}
   table{width:100%;border-collapse:collapse;font-size:13px;}
   thead tr{border-bottom:2px solid var(--navy);}
   thead th{text-align:left;padding:8px 12px;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--navy);font-family:'DM Mono',monospace;}
   thead th:not(:first-child){text-align:right;}
-  tbody tr{border-bottom:1px solid var(--gray1);transition:background .1s;}
+  tbody tr{border-bottom:1px solid var(--gray1);}
   tbody tr:hover{background:var(--gray1);}
-  tbody td{padding:9px 12px;color:var(--navy);}
+  tbody td{padding:9px 12px;}
   tbody td:not(:first-child){text-align:right;font-family:'DM Mono',monospace;font-size:12px;}
-  tbody td.metric-name{font-weight:600;font-size:13px;}
-  tbody td.pos{color:var(--green);font-weight:600;}
-  tbody td.neg{color:var(--red);font-weight:600;}
-  .section-row td{background:var(--navy);color:var(--white)!important;font-weight:700!important;font-size:10px!important;letter-spacing:.06em;text-transform:uppercase;}
+  td.mn{font-weight:600;}
+  .sr td{background:var(--navy);color:white!important;font-size:10px!important;font-weight:700!important;letter-spacing:.06em;text-transform:uppercase;}
 
-  /* ── PROCESSING ── */
-  .processing-bar{display:none;background:var(--white);border-radius:10px;padding:20px 24px;margin-bottom:20px;box-shadow:var(--shadow);border-left:4px solid var(--gold);}
-  .processing-bar.active{display:flex;align-items:center;gap:16px;}
-  .spinner{width:20px;height:20px;border:2.5px solid var(--gray2);border-top-color:var(--gold);border-radius:50%;animation:spin .8s linear infinite;flex-shrink:0;}
-  @keyframes spin{to{transform:rotate(360deg);}}
-  .processing-text{font-size:13px;color:var(--navy);font-weight:500;}
-  .processing-sub{font-size:11px;color:var(--gray3);font-family:'DM Mono',monospace;margin-top:2px;}
-
-  /* ── INSIGHT BANNER ── */
-  .insight-banner{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:12px;padding:20px 24px;margin-bottom:24px;display:none;gap:16px;align-items:flex-start;}
-  .insight-banner.visible{display:flex;}
-  .insight-icon{font-size:22px;flex-shrink:0;margin-top:2px;}
-  .insight-content{flex:1;}
+  /* INSIGHT */
+  .insight{background:linear-gradient(135deg,var(--navy),var(--navy2));border-radius:12px;padding:20px 24px;margin-bottom:24px;display:none;gap:16px;align-items:flex-start;}
+  .insight.on{display:flex;}
+  .insight-icon{font-size:22px;flex-shrink:0;}
   .insight-title{color:var(--gold);font-size:12px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;font-family:'DM Mono',monospace;}
   .insight-text{color:rgba(255,255,255,.88);font-size:13px;line-height:1.6;}
 
-  /* ── EMPTY ── */
-  .empty-state{background:var(--white);border-radius:12px;padding:60px 40px;text-align:center;box-shadow:var(--shadow);border:1px dashed var(--gray2);}
-  .empty-icon{font-size:48px;margin-bottom:16px;opacity:.5;}
-  .empty-state h3{font-family:'Playfair Display',serif;font-size:20px;color:var(--navy);margin-bottom:8px;}
-  .empty-state p{font-size:13px;color:var(--gray3);line-height:1.6;}
+  /* EMPTY */
+  .empty{background:var(--white);border-radius:12px;padding:60px 40px;text-align:center;box-shadow:var(--shadow);border:1px dashed var(--gray2);}
+  .empty h3{font-family:'Playfair Display',serif;font-size:20px;margin-bottom:8px;}
+  .empty p{font-size:13px;color:var(--gray3);line-height:1.6;}
 
-  @media(max-width:900px){
-    .kpi-grid{grid-template-columns:repeat(3,1fr);}
-    .charts-grid{grid-template-columns:1fr;}
-    .upload-grid{grid-template-columns:1fr;}
-  }
+  @media(max-width:900px){.kpi-grid{grid-template-columns:repeat(3,1fr);}.charts-grid{grid-template-columns:1fr;}.upload-grid{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
 
-<!-- ── API KEY GATE ───────────────────────────────────────────────── -->
-<div id="apiGate">
+<!-- GATE -->
+<div id="gate">
   <div class="gate-box">
     <div class="gate-logo">Augusta Hotel <span>Properties</span></div>
     <div class="gate-sub">Revenue Intelligence Dashboard</div>
-
-    <div class="gate-label">Anthropic API Key</div>
-    <input class="gate-input" type="password" id="apiKeyInput"
-      placeholder="sk-ant-api03-..." autocomplete="off"
-      onkeydown="if(event.key==='Enter') unlockDashboard()">
+    <div class="gate-lbl">Anthropic API Key</div>
+    <input class="gate-input" type="password" id="keyInput" placeholder="Enter your Anthropic API key"
+      onkeydown="if(event.key==='Enter')unlock()">
     <div class="gate-hint">
-      Your key is never stored on any server — it stays in your browser only.<br>
-      Get a key at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a>
+      Your key goes directly to Anthropic — never stored on any server.<br>
+      Get one at <a href="https://console.anthropic.com" target="_blank">console.anthropic.com</a> → API Keys.
     </div>
-
     <div class="gate-remember">
       <input type="checkbox" id="rememberKey">
-      <label for="rememberKey">Remember on this device (saves to localStorage)</label>
+      <label for="rememberKey">Remember on this device</label>
     </div>
-
-    <button class="gate-btn" onclick="unlockDashboard()">Open Dashboard →</button>
-    <div class="gate-error" id="gateError">Please enter a valid Anthropic API key (starts with sk-ant-)</div>
+    <button class="gate-btn" onclick="unlock()">Open Dashboard →</button>
+    <div class="gate-err" id="gateErr">Please enter your Anthropic API key</div>
   </div>
 </div>
 
-<!-- ── HEADER ──────────────────────────────────────────────────────── -->
 <header>
   <div class="logo">Augusta Hotel <span>Properties</span></div>
-  <div class="header-right">
-    <div class="header-date" id="headerDate"></div>
-    <div class="key-indicator" onclick="changeKey()" title="Change API key">🔑 API Key Active</div>
+  <div class="hdr-right">
+    <div class="hdr-date" id="hdrDate"></div>
+    <button class="key-btn" onclick="document.getElementById('gate').style.display='flex'">🔑 Change Key</button>
   </div>
 </header>
 
@@ -225,72 +167,65 @@
     <p>DoubleTree by Hilton Augusta  ·  Crowne Plaza North Augusta</p>
   </div>
 
-  <!-- UPLOAD -->
   <div class="upload-section">
     <h2>Upload Reports</h2>
+    <div class="upload-note">Accepts PDF, TXT, or CSV. Upload the 2026 Budget once — it persists as your baseline.</div>
     <div class="upload-grid">
-      <div class="upload-card budget-card" id="budgetCard">
-        <input type="file" accept=".pdf" id="budgetFile" onchange="handleFile('budget',this)">
-        <div class="upload-icon">📋</div>
-        <div class="upload-label">2026 Budget</div>
-        <div class="upload-sub">Upload once · both properties</div>
-        <div class="upload-filename" id="budgetName" style="display:none"></div>
+      <div class="ucard budget" id="budgetCard">
+        <input type="file" accept=".pdf,.txt,.csv" id="budgetFile" onchange="handleFile('budget',this)">
+        <div class="uicon">📋</div>
+        <div class="ulbl">2026 Budget</div>
+        <div class="usub">Upload once · both properties</div>
+        <div class="ufname" id="budgetName"></div>
       </div>
-      <div class="upload-card" id="dtCard">
-        <input type="file" accept=".pdf" id="dtFile" onchange="handleFile('dt',this)" multiple>
-        <div class="upload-icon">🏨</div>
-        <div class="upload-label">DoubleTree Augusta</div>
-        <div class="upload-sub">Daily revenue · history · forecast</div>
-        <div class="upload-filename" id="dtName" style="display:none"></div>
+      <div class="ucard" id="dtCard">
+        <input type="file" accept=".pdf,.txt,.csv" id="dtFile" onchange="handleFile('dt',this)" multiple>
+        <div class="uicon">🏨</div>
+        <div class="ulbl">DoubleTree Augusta</div>
+        <div class="usub">Daily · history · forecast</div>
+        <div class="ufname" id="dtName"></div>
       </div>
-      <div class="upload-card" id="cpCard">
-        <input type="file" accept=".pdf" id="cpFile" onchange="handleFile('cp',this)" multiple>
-        <div class="upload-icon">🏩</div>
-        <div class="upload-label">Crowne Plaza N. Augusta</div>
-        <div class="upload-sub">Daily revenue · history · forecast</div>
-        <div class="upload-filename" id="cpName" style="display:none"></div>
+      <div class="ucard" id="cpCard">
+        <input type="file" accept=".pdf,.txt,.csv" id="cpFile" onchange="handleFile('cp',this)" multiple>
+        <div class="uicon">🏩</div>
+        <div class="ulbl">Crowne Plaza N. Augusta</div>
+        <div class="usub">Daily · history · forecast</div>
+        <div class="ufname" id="cpName"></div>
       </div>
     </div>
-    <div style="display:flex;align-items:center;gap:14px;margin-top:18px;flex-wrap:wrap;">
-      <button class="process-btn" id="processBtn" onclick="processFiles()" disabled>
-        <span>⚡</span> Analyze Reports
-      </button>
-      <span style="font-size:12px;color:var(--gray3);font-family:'DM Mono',monospace;" id="uploadStatus">Upload at least one property report to begin</span>
+    <div style="display:flex;align-items:center;flex-wrap:wrap;margin-top:18px;">
+      <button class="analyze-btn" id="analyzeBtn" onclick="processFiles()" disabled>⚡ Analyze Reports</button>
+      <span id="upStatus">Upload at least one property report to begin</span>
     </div>
   </div>
 
-  <!-- PROCESSING -->
-  <div class="processing-bar" id="processingBar">
+  <div class="proc-bar" id="procBar">
     <div class="spinner"></div>
     <div>
-      <div class="processing-text" id="processingText">Reading PDFs with AI...</div>
-      <div class="processing-sub" id="processingSub">Extracting revenue, occupancy, ADR, and budget data</div>
+      <div class="proc-txt" id="procTxt">Reading files...</div>
+      <div class="proc-sub" id="procSub">Extracting revenue, occupancy, ADR and budget data</div>
     </div>
   </div>
 
-  <!-- DASHBOARD -->
   <div id="dashboard" style="display:none">
-    <div class="insight-banner" id="insightBanner">
+    <div class="insight" id="insightBanner">
       <div class="insight-icon">✦</div>
-      <div class="insight-content">
+      <div>
         <div class="insight-title">AI Summary</div>
-        <div class="insight-text" id="insightText">Generating analysis...</div>
+        <div class="insight-text" id="insightText">Generating...</div>
       </div>
     </div>
-
     <div class="tabs">
-      <button class="tab active-dt" id="tabDT" onclick="switchProperty('dt')">DoubleTree Augusta</button>
-      <button class="tab" id="tabCP" onclick="switchProperty('cp')">Crowne Plaza N. Augusta</button>
-      <button class="tab" id="tabBoth" onclick="switchProperty('both')">Combined View</button>
+      <button class="tab adt" id="tabDT" onclick="switchProp('dt')">DoubleTree Augusta</button>
+      <button class="tab" id="tabCP" onclick="switchProp('cp')">Crowne Plaza N. Augusta</button>
+      <button class="tab" id="tabBoth" onclick="switchProp('both')">Combined</button>
     </div>
-
     <div class="kpi-grid" id="kpiGrid"></div>
-
     <div class="charts-grid">
       <div class="chart-card">
         <div class="chart-title">Revenue vs. Budget</div>
-        <div class="chart-sub">Month-to-date actual vs. 2026 budget</div>
-        <div class="chart-wrap"><canvas id="revenueChart"></canvas></div>
+        <div class="chart-sub">Daily actual vs. 2026 budget</div>
+        <div class="chart-wrap"><canvas id="revChart"></canvas></div>
       </div>
       <div class="chart-card">
         <div class="chart-title">Occupancy Trend</div>
@@ -298,299 +233,244 @@
         <div class="chart-wrap"><canvas id="occChart"></canvas></div>
       </div>
     </div>
-
-    <div class="table-card">
-      <div class="table-title">Daily Report vs. Budget — Detail</div>
-      <div class="table-sub">Key metrics extracted from uploaded PDF reports</div>
+    <div class="tbl-card">
+      <div class="tbl-title">Detail — Actual vs. Budget</div>
+      <div class="tbl-sub">Extracted from uploaded reports</div>
       <table>
-        <thead>
-          <tr>
-            <th>Metric</th>
-            <th>Today / Latest</th>
-            <th>MTD Actual</th>
-            <th>MTD Budget</th>
-            <th>Variance $</th>
-            <th>Variance %</th>
-            <th>YTD Actual</th>
-            <th>YTD Budget</th>
-          </tr>
-        </thead>
-        <tbody id="tableBody"></tbody>
+        <thead><tr>
+          <th>Metric</th><th>Today</th><th>MTD Actual</th><th>MTD Budget</th>
+          <th>Var $</th><th>Var %</th><th>YTD Actual</th><th>YTD Budget</th>
+        </tr></thead>
+        <tbody id="tblBody"></tbody>
       </table>
     </div>
   </div>
 
-  <div class="empty-state" id="emptyState">
-    <div class="empty-icon">📊</div>
+  <div class="empty" id="emptyState">
+    <div style="font-size:48px;margin-bottom:16px;opacity:.5">📊</div>
     <h3>Ready to Analyze</h3>
-    <p>Upload your 2026 budget (once) and daily revenue PDFs for<br>
-    DoubleTree Augusta and/or Crowne Plaza North Augusta.<br>
-    The AI will extract all key metrics and compare to budget automatically.</p>
+    <p>Upload your 2026 budget and daily revenue reports.<br>
+    Claude AI extracts all key metrics and compares to budget automatically.</p>
   </div>
 </main>
 
 <script>
-pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+let API_KEY = '';
+const S = {budget:null,dt:null,cp:null,active:'dt',data:{dt:null,cp:null}};
+let RC=null, OC=null;
 
-// ── API KEY ────────────────────────────────────────────────────────────
-let ANTHROPIC_API_KEY = '';
-
-function unlockDashboard() {
-  const key = document.getElementById('apiKeyInput').value.trim();
-  if (!key.startsWith('sk-ant-')) {
-    document.getElementById('gateError').style.display = 'block';
-    return;
-  }
-  ANTHROPIC_API_KEY = key;
-  if (document.getElementById('rememberKey').checked) {
-    try { localStorage.setItem('ahp_api_key', key); } catch(e) {}
-  }
-  document.getElementById('apiGate').style.display = 'none';
-}
-
-function changeKey() {
-  document.getElementById('apiKeyInput').value = ANTHROPIC_API_KEY;
-  document.getElementById('apiGate').style.display = 'flex';
-}
-
-// Auto-load saved key
-(function() {
-  try {
-    const saved = localStorage.getItem('ahp_api_key');
-    if (saved && saved.startsWith('sk-ant-')) {
-      ANTHROPIC_API_KEY = saved;
-      document.getElementById('apiKeyInput').value = saved;
-      document.getElementById('rememberKey').checked = true;
-      document.getElementById('apiGate').style.display = 'none';
-    }
-  } catch(e) {}
-})();
-
-// ── STATE ──────────────────────────────────────────────────────────────
-const state = { budget:null, dt:null, cp:null, activeProperty:'dt', data:{dt:null,cp:null} };
-let revenueChart=null, occChart=null;
-
-document.getElementById('headerDate').textContent =
+document.getElementById('hdrDate').textContent =
   new Date().toLocaleDateString('en-US',{weekday:'long',year:'numeric',month:'long',day:'numeric'});
 
-// ── FILES ──────────────────────────────────────────────────────────────
-function handleFile(type, input) {
-  if (!input.files.length) return;
-  state[type] = input.files;
-  const cardId = type==='budget' ? 'budgetCard' : type+'Card';
-  const nameId = type==='budget' ? 'budgetName' : type+'Name';
-  document.getElementById(cardId).classList.add('has-file');
-  const el = document.getElementById(nameId);
-  el.style.display = 'block';
-  el.textContent = input.files.length > 1 ? `${input.files.length} files selected` : input.files[0].name;
-  updateProcessBtn();
+// Auto-load saved key
+(function(){
+  try {
+    const k = localStorage.getItem('ahp_key');
+    if(k && k.length > 10){
+      API_KEY=k;
+      document.getElementById('keyInput').value=k;
+      document.getElementById('rememberKey').checked=true;
+      document.getElementById('gate').style.display='none';
+    }
+  } catch(e){}
+})();
+
+function unlock(){
+  const k = document.getElementById('keyInput').value.trim();
+  if(!k || k.length < 10){ document.getElementById('gateErr').style.display='block'; return; }
+  API_KEY = k;
+  if(document.getElementById('rememberKey').checked){ try{ localStorage.setItem('ahp_key',k); }catch(e){} }
+  document.getElementById('gate').style.display='none';
 }
 
-function updateProcessBtn() {
-  const has = state.dt || state.cp;
-  document.getElementById('processBtn').disabled = !has;
-  document.getElementById('uploadStatus').textContent = has
-    ? (state.budget ? '✓ Budget + property report ready' : '⚠ No budget — will analyze without comparison')
+function handleFile(type, input){
+  if(!input.files.length) return;
+  S[type] = input.files;
+  const card = document.getElementById(type==='budget'?'budgetCard':type+'Card');
+  const name = document.getElementById(type==='budget'?'budgetName':type+'Name');
+  card.classList.add('has-file');
+  name.style.display='block';
+  name.textContent = input.files.length>1 ? input.files.length+' files selected' : input.files[0].name;
+  const has = S.dt||S.cp;
+  document.getElementById('analyzeBtn').disabled=!has;
+  document.getElementById('upStatus').textContent = has
+    ? (S.budget?'✓ Ready — budget + property report loaded':'⚠ No budget uploaded — will analyze without comparison')
     : 'Upload at least one property report to begin';
 }
 
-// ── PDF EXTRACT ────────────────────────────────────────────────────────
-async function extractPdfText(file) {
-  const buf = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument({data:buf}).promise;
-  let text = '';
-  for (let i=1; i<=pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const content = await page.getTextContent();
-    text += content.items.map(item=>item.str).join(' ') + '\n';
+async function readFile(file){
+  if(file.type.includes('text')||file.name.endsWith('.csv')||file.name.endsWith('.txt')){
+    return new Promise((res,rej)=>{const r=new FileReader();r.onload=e=>res(e.target.result);r.onerror=rej;r.readAsText(file);});
   }
-  return text;
+  // PDF — try loading PDF.js lazily
+  if(window.pdfjsLib){
+    try {
+      const buf=await file.arrayBuffer();
+      const pdf=await pdfjsLib.getDocument({data:buf}).promise;
+      let txt='';
+      for(let i=1;i<=pdf.numPages;i++){
+        const pg=await pdf.getPage(i);
+        const c=await pg.getTextContent();
+        txt+=c.items.map(x=>x.str).join(' ')+'\n';
+      }
+      return txt;
+    } catch(e){ console.warn('PDF.js extraction failed',e); }
+  }
+  return '[PDF: '+file.name+' ('+Math.round(file.size/1024)+'KB) — extract data from this hotel revenue report]';
 }
 
-async function extractAllText(files) {
-  let out = '';
-  for (const f of Array.from(files)) out += await extractPdfText(f) + '\n\n---\n\n';
+function loadPdfJs(){
+  return new Promise(res=>{
+    if(window.pdfjsLib){res();return;}
+    const s=document.createElement('script');
+    s.src='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js';
+    s.onload=()=>{
+      try{ pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js'; }catch(e){}
+      res();
+    };
+    s.onerror=()=>res();
+    document.head.appendChild(s);
+  });
+}
+
+async function readAll(files){
+  let out='';
+  for(const f of Array.from(files)) out+=await readFile(f)+'\n\n---\n\n';
   return out;
 }
 
-// ── PROCESS ────────────────────────────────────────────────────────────
-async function processFiles() {
-  const bar = document.getElementById('processingBar');
-  const btn = document.getElementById('processBtn');
-  bar.classList.add('active'); btn.disabled = true;
-  document.getElementById('emptyState').style.display = 'none';
-
+async function processFiles(){
+  const bar=document.getElementById('procBar');
+  const btn=document.getElementById('analyzeBtn');
+  bar.classList.add('on'); btn.disabled=true;
+  document.getElementById('emptyState').style.display='none';
   try {
-    setProcessing('Reading PDFs...','Extracting text from uploaded reports');
-    const texts = {};
-    if (state.budget) texts.budget = await extractAllText(state.budget);
-    if (state.dt)     texts.dt     = await extractAllText(state.dt);
-    if (state.cp)     texts.cp     = await extractAllText(state.cp);
-
-    setProcessing('Sending to Claude AI...','Parsing revenue metrics, occupancy, ADR, and budget data');
-    const parsed = await parseWithClaude(texts);
-
-    setProcessing('Building dashboard...','Rendering charts and comparison table');
-    state.data = parsed;
+    setP('Loading PDF reader...','Preparing to read your reports');
+    await loadPdfJs();
+    setP('Reading files...','Extracting text from uploaded reports');
+    const texts={};
+    if(S.budget) texts.budget=await readAll(S.budget);
+    if(S.dt)     texts.dt=await readAll(S.dt);
+    if(S.cp)     texts.cp=await readAll(S.cp);
+    setP('Sending to Claude AI...','Parsing revenue, occupancy, ADR, and budget data');
+    const parsed=await parseData(texts);
+    setP('Building dashboard...','Rendering charts and comparison table');
+    S.data=parsed;
     renderDashboard();
     getInsight(parsed);
-
-  } catch(err) {
-    document.getElementById('processingText').textContent = '⚠ Error: ' + err.message;
-    document.getElementById('processingSub').textContent = 'Check your API key and try again.';
-    btn.disabled = false;
+  } catch(err){
+    console.error(err);
+    document.getElementById('procTxt').textContent='⚠ Error: '+err.message;
+    document.getElementById('procSub').textContent='Check your API key and try again.';
+    btn.disabled=false;
+    bar.classList.remove('on');
     return;
   }
-
-  bar.classList.remove('active');
-  btn.disabled = false;
+  bar.classList.remove('on'); btn.disabled=false;
 }
 
-function setProcessing(text, sub) {
-  document.getElementById('processingText').textContent = text;
-  document.getElementById('processingSub').textContent = sub;
+function setP(t,s){
+  document.getElementById('procTxt').textContent=t;
+  document.getElementById('procSub').textContent=s;
 }
 
-// ── CLAUDE API ─────────────────────────────────────────────────────────
-async function callClaude(prompt) {
-  const res = await fetch('https://api.anthropic.com/v1/messages', {
+async function callClaude(prompt){
+  const res=await fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:{
       'Content-Type':'application/json',
-      'x-api-key': ANTHROPIC_API_KEY,
+      'x-api-key':API_KEY,
       'anthropic-version':'2023-06-01',
-      'anthropic-dangerous-direct-browser-access':'true',
       'anthropic-dangerous-direct-browser-access':'true'
     },
-    body: JSON.stringify({
-      model:'claude-sonnet-4-5',
-      max_tokens:1000,
-      messages:[{role:'user',content:prompt}]
-    })
+    body:JSON.stringify({model:'claude-haiku-4-5-20251001',max_tokens:1000,messages:[{role:'user',content:prompt}]})
   });
-  if (!res.ok) {
-    const err = await res.json().catch(()=>({}));
-    throw new Error(err.error?.message || 'API error ' + res.status);
-  }
-  const data = await res.json();
-  return data.content[0].text;
+  if(!res.ok){const e=await res.json().catch(()=>({}));throw new Error(e.error?.message||'API error '+res.status);}
+  const d=await res.json();
+  return d.content[0].text;
 }
 
-async function parseWithClaude(texts) {
-  const prompt = `You are analyzing hotel daily revenue reports and budget documents for Augusta Hotel Properties.
-Properties: DoubleTree by Hilton Augusta (key "dt"), Crowne Plaza North Augusta (key "cp").
+function emptyProp(){
+  return {
+    today:{occupancy:0,adr:0,revpar:0,rooms_sold:0,total_revenue:0},
+    mtd:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+    mtd_budget:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
+    ytd:{occupancy:0,adr:0,total_revenue:0,ebitda:0},
+    ytd_budget:{occupancy:0,adr:0,total_revenue:0,ebitda:0},
+    trend_labels:[],trend_actual:[],trend_budget:[],occ_trend_actual:[],occ_trend_budget:[]
+  };
+}
 
-Return ONLY valid JSON, no markdown, no preamble.
+async function parseData(texts){
+  const prompt=`Analyze these hotel revenue reports for Augusta Hotel Properties and return ONLY valid JSON — no markdown, no explanation.
 
-JSON structure:
+JSON structure (use 0 for missing values):
 {
   "dt": {
-    "propertyName": "DoubleTree by Hilton Augusta",
-    "reportDate": "YYYY-MM-DD or null",
-    "today": { "occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_sold":0,"total_revenue":0 },
-    "mtd": { "occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0 },
-    "mtd_budget": { "occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0 },
-    "ytd": { "occupancy":0.0,"adr":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0 },
-    "ytd_budget": { "occupancy":0.0,"adr":0.0,"total_revenue":0,"ebitda":0 },
-    "trend_labels":["Day 1","Day 2"],
-    "trend_actual":[0.0,0.0],
-    "trend_budget":[0.0,0.0],
-    "occ_trend_actual":[0.0],
-    "occ_trend_budget":[0.0]
+    "today":{"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_sold":0,"total_revenue":0},
+    "mtd":{"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0},
+    "mtd_budget":{"occupancy":0.0,"adr":0.0,"revpar":0.0,"rooms_revenue":0,"food_bev_revenue":0,"total_revenue":0,"ebitda":0},
+    "ytd":{"occupancy":0.0,"adr":0.0,"total_revenue":0,"ebitda":0},
+    "ytd_budget":{"occupancy":0.0,"adr":0.0,"total_revenue":0,"ebitda":0},
+    "trend_labels":[],"trend_actual":[],"trend_budget":[],"occ_trend_actual":[],"occ_trend_budget":[]
   },
-  "cp": { ...same structure... },
-  "hasBudget": true
+  "cp": { same structure as dt },
+  "hasBudget": false
 }
 
-Use 0 or null for missing values. Extract daily trends up to 31 days if available.
+dt = DoubleTree by Hilton Augusta. cp = Crowne Plaza North Augusta.
+Extract daily trends (up to 31 values) if available.
 
-${texts.budget?`BUDGET:\n${texts.budget.slice(0,5000)}\n\n`:''}
-${texts.dt?`DOUBLETREE REPORT:\n${texts.dt.slice(0,5000)}\n\n`:''}
-${texts.cp?`CROWNE PLAZA REPORT:\n${texts.cp.slice(0,5000)}\n\n`:''}`;
+${texts.budget?'BUDGET:\n'+texts.budget.slice(0,4000)+'\n\n':''}${texts.dt?'DOUBLETREE:\n'+texts.dt.slice(0,4000)+'\n\n':''}${texts.cp?'CROWNE PLAZA:\n'+texts.cp.slice(0,4000)+'\n\n':''}`;
 
-  const raw = await callClaude(prompt);
-  const clean = raw.replace(/```json|```/g,"").trim();
-  // Extract and parse JSON from AI response
-  const jsonMatch = clean.match(/\{[\s\S]*\}/);
-  const toParse = jsonMatch ? jsonMatch[0] : clean;
-  try {
-    return JSON.parse(toParse);
-  } catch(e) {
-    console.warn('JSON parse failed:', e.message, '\nRaw:', raw.slice(0,300));
-    const empty = () => ({
-      propertyName:'',reportDate:null,
-      today:{occupancy:0,adr:0,revpar:0,rooms_sold:0,total_revenue:0},
-      mtd:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
-      mtd_budget:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
-      ytd:{occupancy:0,adr:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
-      ytd_budget:{occupancy:0,adr:0,total_revenue:0,ebitda:0},
-      trend_labels:[],trend_actual:[],trend_budget:[],occ_trend_actual:[],occ_trend_budget:[]
-    });
-    return {dt:state.dt?empty():null, cp:state.cp?empty():null, hasBudget:!!state.budget};
-  }
-    const empty = () => ({
-      propertyName:'', reportDate:null,
-      today:{occupancy:0,adr:0,revpar:0,rooms_sold:0,total_revenue:0},
-      mtd:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
-      mtd_budget:{occupancy:0,adr:0,revpar:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
-      ytd:{occupancy:0,adr:0,rooms_revenue:0,food_bev_revenue:0,total_revenue:0,ebitda:0},
-      ytd_budget:{occupancy:0,adr:0,total_revenue:0,ebitda:0},
-      trend_labels:[],trend_actual:[],trend_budget:[],occ_trend_actual:[],occ_trend_budget:[]
-    });
-    return { dt: state.dt ? empty() : null, cp: state.cp ? empty() : null, hasBudget: !!state.budget };
+  const raw=await callClaude(prompt);
+  const clean=raw.replace(/```json|```/g,'').trim();
+  const m=clean.match(/\{[\s\S]*\}/);
+  try{ return JSON.parse(m?m[0]:clean); }
+  catch(e){
+    console.warn('JSON parse failed:',e.message);
+    return {dt:S.dt?emptyProp():null,cp:S.cp?emptyProp():null,hasBudget:!!S.budget};
   }
 }
 
-async function getInsight(parsed) {
-  const banner = document.getElementById('insightBanner');
-  banner.classList.add('visible');
-  document.getElementById('insightText').textContent = 'Generating analysis...';
+async function getInsight(parsed){
+  const b=document.getElementById('insightBanner');
+  b.classList.add('on');
+  document.getElementById('insightText').textContent='Generating analysis...';
+  const dt=parsed.dt||{},cp=parsed.cp||{};
+  const prompt=`You are an internal analyst for Augusta Hotel Properties (owner: Flacks Capital LLC). Write 2-3 sentences of direct executive insight on current performance. Use specific numbers. Under 65 words. Speak to the owner.
 
-  const dt = parsed.dt || {}, cp = parsed.cp || {};
-  const prompt = `You are an internal analyst for Augusta Hotel Properties (owner: Flacks Capital LLC).
-Write a concise 2-3 sentence executive insight about current hotel performance. Be direct, use specific numbers, highlight what is notable. Speak to the owner. Under 65 words.
-
-DoubleTree Augusta: MTD Revenue $${(dt.mtd?.total_revenue||0).toLocaleString()} vs Budget $${(dt.mtd_budget?.total_revenue||0).toLocaleString()}, Occ ${((dt.mtd?.occupancy||0)*100).toFixed(1)}%, ADR $${(dt.mtd?.adr||0).toFixed(2)}
-Crowne Plaza N. Augusta: MTD Revenue $${(cp.mtd?.total_revenue||0).toLocaleString()} vs Budget $${(cp.mtd_budget?.total_revenue||0).toLocaleString()}, Occ ${((cp.mtd?.occupancy||0)*100).toFixed(1)}%, ADR $${(cp.mtd?.adr||0).toFixed(2)}`;
-
-  try {
-    document.getElementById('insightText').textContent = await callClaude(prompt);
-  } catch {
-    document.getElementById('insightText').textContent = 'Could not generate AI summary.';
-  }
+DoubleTree Augusta: MTD Rev $${(dt.mtd?.total_revenue||0).toLocaleString()} vs Budget $${(dt.mtd_budget?.total_revenue||0).toLocaleString()}, Occ ${((dt.mtd?.occupancy||0)*100).toFixed(1)}%, ADR $${(dt.mtd?.adr||0).toFixed(0)}
+Crowne Plaza N. Augusta: MTD Rev $${(cp.mtd?.total_revenue||0).toLocaleString()} vs Budget $${(cp.mtd_budget?.total_revenue||0).toLocaleString()}, Occ ${((cp.mtd?.occupancy||0)*100).toFixed(1)}%, ADR $${(cp.mtd?.adr||0).toFixed(0)}`;
+  try{ document.getElementById('insightText').textContent=await callClaude(prompt); }
+  catch{ document.getElementById('insightText').textContent='Upload reports to generate AI analysis.'; }
 }
 
-// ── RENDER ─────────────────────────────────────────────────────────────
-function renderDashboard() {
-  document.getElementById('dashboard').style.display = 'block';
-  switchProperty('dt');
+function renderDashboard(){ document.getElementById('dashboard').style.display='block'; switchProp('dt'); }
+
+function switchProp(p){
+  S.active=p;
+  document.getElementById('tabDT').className='tab'+(p==='dt'?' adt':'');
+  document.getElementById('tabCP').className='tab'+(p==='cp'?' acp':'');
+  document.getElementById('tabBoth').className='tab'+(p==='both'?' aboth':'');
+  const d=p==='both'?combined():S.data[p];
+  if(!d){ document.getElementById('kpiGrid').innerHTML='<div style="grid-column:1/-1;color:var(--gray3);padding:20px;font-size:13px;">No data for this property — upload a report above.</div>'; return; }
+  renderKPIs(d,p); renderCharts(d,p); renderTable(d);
 }
 
-function switchProperty(prop) {
-  state.activeProperty = prop;
-  document.getElementById('tabDT').className  = 'tab' + (prop==='dt'   ? ' active-dt'   : '');
-  document.getElementById('tabCP').className  = 'tab' + (prop==='cp'   ? ' active-cp'   : '');
-  document.getElementById('tabBoth').className= 'tab' + (prop==='both' ? ' active-both' : '');
-  const d = prop==='both' ? combinedData() : state.data[prop];
-  if (!d) { document.getElementById('kpiGrid').innerHTML='<div style="grid-column:1/-1;color:var(--gray3);padding:20px 0;font-size:13px;">No data for this property. Upload a report above.</div>'; return; }
-  renderKPIs(d, prop);
-  renderCharts(d, prop);
-  renderTable(d);
-}
-
-function combinedData() {
-  const a=state.data.dt||{}, b=state.data.cp||{};
-  if (!state.data.dt && !state.data.cp) return null;
-  const n = (state.data.dt?1:0)+(state.data.cp?1:0);
-  function s(k1,k2){ return ((a[k1]||{})[k2]||0)+((b[k1]||{})[k2]||0); }
+function combined(){
+  const a=S.data.dt||{},b=S.data.cp||{};
+  if(!S.data.dt&&!S.data.cp) return null;
+  const n=(S.data.dt?1:0)+(S.data.cp?1:0);
+  const s=(k,f)=>((a[k]||{})[f]||0)+((b[k]||{})[f]||0);
+  const avg=(k,f)=>(((a[k]||{})[f]||0)+((b[k]||{})[f]||0))/n;
   return {
-    mtd:{ total_revenue:s('mtd','total_revenue'), rooms_revenue:s('mtd','rooms_revenue'), food_bev_revenue:s('mtd','food_bev_revenue'), ebitda:s('mtd','ebitda'),
-          occupancy:((a.mtd?.occupancy||0)+(b.mtd?.occupancy||0))/n, adr:((a.mtd?.adr||0)+(b.mtd?.adr||0))/n },
-    mtd_budget:{ total_revenue:s('mtd_budget','total_revenue'), rooms_revenue:s('mtd_budget','rooms_revenue'), ebitda:s('mtd_budget','ebitda'),
-                 occupancy:((a.mtd_budget?.occupancy||0)+(b.mtd_budget?.occupancy||0))/n, adr:((a.mtd_budget?.adr||0)+(b.mtd_budget?.adr||0))/n },
-    ytd:{ total_revenue:s('ytd','total_revenue'), rooms_revenue:s('ytd','rooms_revenue'), ebitda:s('ytd','ebitda') },
-    ytd_budget:{ total_revenue:s('ytd_budget','total_revenue') },
-    today: a.today||b.today||{},
+    today:a.today||b.today||{},
+    mtd:{total_revenue:s('mtd','total_revenue'),rooms_revenue:s('mtd','rooms_revenue'),food_bev_revenue:s('mtd','food_bev_revenue'),ebitda:s('mtd','ebitda'),occupancy:avg('mtd','occupancy'),adr:avg('mtd','adr'),revpar:avg('mtd','revpar')},
+    mtd_budget:{total_revenue:s('mtd_budget','total_revenue'),rooms_revenue:s('mtd_budget','rooms_revenue'),ebitda:s('mtd_budget','ebitda'),occupancy:avg('mtd_budget','occupancy'),adr:avg('mtd_budget','adr')},
+    ytd:{total_revenue:s('ytd','total_revenue'),ebitda:s('ytd','ebitda')},
+    ytd_budget:{total_revenue:s('ytd_budget','total_revenue')},
+    today:a.today||b.today||{},
     trend_labels:a.trend_labels||b.trend_labels||[],
     trend_actual:(a.trend_actual||[]).map((v,i)=>v+((b.trend_actual||[])[i]||0)),
     trend_budget:(a.trend_budget||[]).map((v,i)=>v+((b.trend_budget||[])[i]||0)),
@@ -599,99 +479,62 @@ function combinedData() {
   };
 }
 
-function renderKPIs(d, prop) {
-  const cc = prop==='cp'?'cp-card':prop==='both'?'both-card':'dt-card';
-  const mtd=d.mtd||{}, bud=d.mtd_budget||{}, ytd=d.ytd||{}, ybud=d.ytd_budget||{}, tod=d.today||{};
-  function dlta(a,b,isPct){
-    if(!b||!a) return {text:'— vs budget',cls:'neu'};
-    const diff=a-b, sign=diff>=0?'+':'', cls=diff>=0?'pos':'neg';
-    return isPct ? {text:`${sign}${(diff*100).toFixed(1)} bps vs budget`,cls} : {text:`${sign}${fmt(diff)} vs budget`,cls};
+function renderKPIs(d,p){
+  const cc=p==='cp'?'ccp':p==='both'?'cboth':'cdt';
+  const m=d.mtd||{},bm=d.mtd_budget||{},y=d.ytd||{},by=d.ytd_budget||{},t=d.today||{};
+  function dl(a,b,isPct){
+    if(!a||!b) return {text:'—',cls:'neu'};
+    const diff=a-b,sign=diff>=0?'+':'',cls=diff>=0?'pos':'neg';
+    return isPct?{text:sign+(diff*100).toFixed(1)+' bps vs bgt',cls}:{text:sign+fmt(diff)+' vs bgt',cls};
   }
-  const rv=dlta(mtd.total_revenue,bud.total_revenue), oc=dlta(mtd.occupancy,bud.occupancy,true), yt=dlta(ytd.total_revenue,ybud.total_revenue);
+  const rv=dl(m.total_revenue,bm.total_revenue),oc=dl(m.occupancy,bm.occupancy,true),yt=dl(y.total_revenue,by.total_revenue);
   const cards=[
-    {label:'Today Occ',  value:tod.occupancy?pct(tod.occupancy):'—', delta:tod.rooms_sold?`${tod.rooms_sold} rooms sold`:'', cls:'neu', sub:tod.adr?`ADR $${tod.adr.toFixed(2)}`:''},
-    {label:'MTD Occupancy', value:mtd.occupancy?pct(mtd.occupancy):'—', delta:oc.text, cls:oc.cls, sub:mtd.adr?`ADR $${mtd.adr.toFixed(2)}`:''},
-    {label:'MTD Revenue', value:mtd.total_revenue?fmt(mtd.total_revenue):'—', delta:rv.text, cls:rv.cls, sub:bud.total_revenue?`Budget ${fmt(bud.total_revenue)}`:''},
-    {label:'MTD RevPAR',  value:mtd.revpar?`$${mtd.revpar.toFixed(2)}`:(mtd.occupancy&&mtd.adr?`$${(mtd.occupancy*mtd.adr).toFixed(2)}`:'—'), delta:'', cls:'neu', sub:''},
-    {label:'YTD Revenue', value:ytd.total_revenue?fmt(ytd.total_revenue):'—', delta:yt.text, cls:yt.cls, sub:ybud.total_revenue?`Budget ${fmt(ybud.total_revenue)}`:''},
-    {label:'MTD EBITDA',  value:mtd.ebitda?fmt(mtd.ebitda):'—', delta:bud.ebitda?dlta(mtd.ebitda,bud.ebitda).text:'', cls:bud.ebitda?dlta(mtd.ebitda,bud.ebitda).cls:'neu', sub:''},
+    {l:'Today Occ',v:t.occupancy?pct(t.occupancy):'—',d:t.rooms_sold?t.rooms_sold+' rooms':'',c:'neu',s:t.adr?'ADR $'+t.adr.toFixed(0):''},
+    {l:'MTD Occupancy',v:m.occupancy?pct(m.occupancy):'—',d:oc.text,c:oc.cls,s:m.adr?'ADR $'+m.adr.toFixed(2):''},
+    {l:'MTD Revenue',v:m.total_revenue?fmt(m.total_revenue):'—',d:rv.text,c:rv.cls,s:bm.total_revenue?'Budget '+fmt(bm.total_revenue):''},
+    {l:'MTD RevPAR',v:m.revpar?'$'+m.revpar.toFixed(2):(m.occupancy&&m.adr?'$'+(m.occupancy*m.adr).toFixed(2):'—'),d:'',c:'neu',s:''},
+    {l:'YTD Revenue',v:y.total_revenue?fmt(y.total_revenue):'—',d:yt.text,c:yt.cls,s:by.total_revenue?'Budget '+fmt(by.total_revenue):''},
+    {l:'MTD EBITDA',v:m.ebitda?fmt(m.ebitda):'—',d:bm.ebitda?dl(m.ebitda,bm.ebitda).text:'',c:bm.ebitda?dl(m.ebitda,bm.ebitda).cls:'neu',s:''},
   ];
-  document.getElementById('kpiGrid').innerHTML=cards.map(c=>`
-    <div class="kpi-card ${cc}">
-      <div class="kpi-label">${c.label}</div>
-      <div class="kpi-value">${c.value}</div>
-      ${c.delta?`<div class="kpi-delta ${c.cls}">${c.delta}</div>`:''}
-      ${c.sub?`<div class="kpi-sub">${c.sub}</div>`:''}
-    </div>`).join('');
+  document.getElementById('kpiGrid').innerHTML=cards.map(c=>`<div class="kcard ${cc}"><div class="klbl">${c.l}</div><div class="kval">${c.v}</div>${c.d?`<div class="kdelta ${c.c}">${c.d}</div>`:''} ${c.s?`<div class="ksub">${c.s}</div>`:''}</div>`).join('');
 }
 
-function renderCharts(d, prop) {
-  const C = prop==='cp' ? {main:'#7B2D8B',bud:'#D4A8DE'} : prop==='both' ? {main:'#1A2744',bud:'#8899BB'} : {main:'#0077B6',bud:'#99CCE8'};
+function renderCharts(d,p){
+  const C=p==='cp'?{m:'#7B2D8B',b:'#D4A8DE'}:p==='both'?{m:'#1A2744',b:'#8899BB'}:{m:'#0077B6',b:'#99CCE8'};
   const labels=d.trend_labels?.length?d.trend_labels:['No data'];
   const act=d.trend_actual?.length?d.trend_actual:[0];
   const bgt=d.trend_budget?.length?d.trend_budget:[0];
   const oA=d.occ_trend_actual?.length?d.occ_trend_actual.map(v=>v*100):[0];
   const oB=d.occ_trend_budget?.length?d.occ_trend_budget.map(v=>v*100):[0];
-  if(revenueChart) revenueChart.destroy();
-  if(occChart) occChart.destroy();
-  const baseOpts={responsive:true,maintainAspectRatio:false,
-    plugins:{legend:{labels:{font:{family:'DM Mono',size:11},color:'#1A2744'}}},
-    scales:{x:{grid:{color:'#F2EFE9'},ticks:{font:{family:'DM Mono',size:10},color:'#9A9488'}},
-            y:{grid:{color:'#F2EFE9'},ticks:{font:{family:'DM Mono',size:10},color:'#9A9488'}}}};
-  revenueChart=new Chart(document.getElementById('revenueChart'),{type:'bar',
-    data:{labels,datasets:[
-      {label:'Actual Revenue',data:act,backgroundColor:C.main+'CC',borderRadius:4},
-      {label:'Budget',data:bgt,backgroundColor:C.bud,borderRadius:4}
-    ]},
-    options:{...baseOpts,scales:{...baseOpts.scales,y:{...baseOpts.scales.y,ticks:{...baseOpts.scales.y.ticks,callback:v=>'$'+(v>=1000?(v/1000).toFixed(0)+'K':v)}}}}
-  });
-  occChart=new Chart(document.getElementById('occChart'),{type:'line',
-    data:{labels,datasets:[
-      {label:'Actual Occ %',data:oA,borderColor:C.main,backgroundColor:C.main+'18',tension:.3,fill:true,pointRadius:3},
-      {label:'Budget Occ %',data:oB,borderColor:C.bud,borderDash:[5,4],tension:.3,fill:false,pointRadius:0}
-    ]},
-    options:{...baseOpts,scales:{...baseOpts.scales,y:{...baseOpts.scales.y,ticks:{...baseOpts.scales.y.ticks,callback:v=>v.toFixed(0)+'%'}}}}
-  });
+  if(RC) RC.destroy(); if(OC) OC.destroy();
+  const base={responsive:true,maintainAspectRatio:false,plugins:{legend:{labels:{font:{family:'DM Mono',size:11},color:'#1A2744'}}},scales:{x:{grid:{color:'#F2EFE9'},ticks:{font:{family:'DM Mono',size:10},color:'#9A9488'}},y:{grid:{color:'#F2EFE9'},ticks:{font:{family:'DM Mono',size:10},color:'#9A9488'}}}};
+  RC=new Chart(document.getElementById('revChart'),{type:'bar',data:{labels,datasets:[{label:'Actual',data:act,backgroundColor:C.m+'CC',borderRadius:4},{label:'Budget',data:bgt,backgroundColor:C.b,borderRadius:4}]},options:{...base,scales:{...base.scales,y:{...base.scales.y,ticks:{...base.scales.y.ticks,callback:v=>'$'+(v>=1000?(v/1000).toFixed(0)+'K':v)}}}}});
+  OC=new Chart(document.getElementById('occChart'),{type:'line',data:{labels,datasets:[{label:'Actual %',data:oA,borderColor:C.m,backgroundColor:C.m+'18',tension:.3,fill:true,pointRadius:3},{label:'Budget %',data:oB,borderColor:C.b,borderDash:[5,4],tension:.3,fill:false,pointRadius:0}]},options:{...base,scales:{...base.scales,y:{...base.scales.y,ticks:{...base.scales.y.ticks,callback:v=>v.toFixed(0)+'%'}}}}});
 }
 
-function renderTable(d) {
-  const mtd=d.mtd||{}, bud=d.mtd_budget||{}, ytd=d.ytd||{}, ybud=d.ytd_budget||{}, tod=d.today||{};
-  function row(label,todV,mA,mB,yA,yB,isPct){
-    const va=mA&&mB?mA-mB:null, vp=mA&&mB?(mA-mB)/mB:null;
-    const cls=va===null?'':va>=0?'pos':'neg', sign=va>=null&&va>=0?'+':'';
-    return `<tr>
-      <td class="metric-name">${label}</td>
-      <td>${todV||'—'}</td>
-      <td>${mA?(isPct?pct(mA):fmt(mA)):'—'}</td>
-      <td>${mB?(isPct?pct(mB):fmt(mB)):'—'}</td>
-      <td class="${cls}">${va!==null?sign+(isPct?(va*100).toFixed(1)+'bps':fmt(va)):'—'}</td>
-      <td class="${cls}">${vp!==null?sign+(vp*100).toFixed(1)+'%':'—'}</td>
-      <td>${yA?(isPct?pct(yA):fmt(yA)):'—'}</td>
-      <td>${yB?(isPct?pct(yB):fmt(yB)):'—'}</td>
-    </tr>`;
+function renderTable(d){
+  const m=d.mtd||{},bm=d.mtd_budget||{},y=d.ytd||{},by=d.ytd_budget||{},t=d.today||{};
+  function row(label,tv,mA,mB,yA,yB,isPct){
+    const va=mA&&mB?mA-mB:null,vp=mA&&mB?(mA-mB)/mB:null;
+    const cls=va===null?'':va>=0?'pos':'neg',sign=va!==null&&va>=0?'+':'';
+    return `<tr><td class="mn">${label}</td><td>${tv||'—'}</td><td>${mA?(isPct?pct(mA):fmt(mA)):'—'}</td><td>${mB?(isPct?pct(mB):fmt(mB)):'—'}</td><td class="${cls}">${va!==null?sign+(isPct?(va*100).toFixed(1)+'bps':fmt(va)):'—'}</td><td class="${cls}">${vp!==null?sign+(vp*100).toFixed(1)+'%':'—'}</td><td>${yA?(isPct?pct(yA):fmt(yA)):'—'}</td><td>${yB?(isPct?pct(yB):fmt(yB)):'—'}</td></tr>`;
   }
-  const sec=l=>`<tr class="section-row"><td colspan="8">${l}</td></tr>`;
-  document.getElementById('tableBody').innerHTML=[
+  const sec=l=>`<tr class="sr"><td colspan="8">${l}</td></tr>`;
+  document.getElementById('tblBody').innerHTML=[
     sec('OCCUPANCY & RATE'),
-    row('Occupancy',tod.occupancy?pct(tod.occupancy):'—',mtd.occupancy,bud.occupancy,null,null,true),
-    row('ADR',tod.adr?'$'+tod.adr.toFixed(2):'—',mtd.adr,bud.adr,null,null,false),
-    row('RevPAR',tod.revpar?'$'+tod.revpar.toFixed(2):'—',mtd.revpar||(mtd.occupancy*mtd.adr)||0,bud.revpar||(bud.occupancy*bud.adr)||0,null,null,false),
+    row('Occupancy',t.occupancy?pct(t.occupancy):'—',m.occupancy,bm.occupancy,null,null,true),
+    row('ADR',t.adr?'$'+t.adr.toFixed(2):'—',m.adr,bm.adr,null,null,false),
+    row('RevPAR',t.revpar?'$'+t.revpar.toFixed(2):'—',m.revpar||(m.occupancy*m.adr)||0,bm.revpar||(bm.occupancy*bm.adr)||0,null,null,false),
     sec('REVENUE'),
-    row('Rooms Revenue','—',mtd.rooms_revenue,bud.rooms_revenue,ytd.rooms_revenue,ybud.rooms_revenue),
-    row('Food & Beverage','—',mtd.food_bev_revenue,bud.food_bev_revenue,null,null),
-    row('Total Revenue',tod.total_revenue?fmt(tod.total_revenue):'—',mtd.total_revenue,bud.total_revenue,ytd.total_revenue,ybud.total_revenue),
+    row('Rooms Revenue','—',m.rooms_revenue,bm.rooms_revenue,y.rooms_revenue,by.rooms_revenue),
+    row('F&B Revenue','—',m.food_bev_revenue,bm.food_bev_revenue,null,null),
+    row('Total Revenue',t.total_revenue?fmt(t.total_revenue):'—',m.total_revenue,bm.total_revenue,y.total_revenue,by.total_revenue),
     sec('PROFITABILITY'),
-    row('EBITDA','—',mtd.ebitda,bud.ebitda,ytd.ebitda,ybud.ebitda),
+    row('EBITDA','—',m.ebitda,bm.ebitda,y.ebitda,by.ebitda),
   ].join('');
 }
 
-function fmt(v){
-  if(!v&&v!==0)return'—';
-  const abs=Math.abs(v), sign=v<0?'-':'';
-  if(abs>=1000000)return sign+'$'+(abs/1000000).toFixed(2)+'MM';
-  if(abs>=1000)   return sign+'$'+Math.round(abs).toLocaleString();
-  return sign+'$'+abs.toFixed(2);
-}
+function fmt(v){if(!v&&v!==0)return'—';const a=Math.abs(v),s=v<0?'-':'';return a>=1000000?s+'$'+(a/1000000).toFixed(2)+'MM':a>=1000?s+'$'+Math.round(a).toLocaleString():s+'$'+a.toFixed(2);}
 function pct(v){return v?(v*100).toFixed(1)+'%':'—';}
 </script>
 </body>
